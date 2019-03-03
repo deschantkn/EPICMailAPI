@@ -1,0 +1,25 @@
+{
+  "name": "epicmailapi",
+  "version": "1.0.0",
+  "description": "The Backbone of plain and simple communication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deschant/EPICMailAPI.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "Express",
+    "Nodejs"
+  ],
+  "author": "Kounou Deschant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deschant/EPICMailAPI/issues"
+  },
+  "homepage": "https://github.com/deschant/EPICMailAPI#readme"
+}
