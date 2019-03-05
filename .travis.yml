@@ -12,6 +12,6 @@ script: ./scripts/create-data-dirs.sh
 env:
   - NODE_ENV="test"
   - PORT=3000
-  - MORGAN="test"
+  - MORGAN="tiny"
   - ID_LENGTH=10
   - HASHING_SECRET="thisIsASecrete"
