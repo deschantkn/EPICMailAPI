@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#6C63FF"/>
+  <title>Epic Mail | Sent</title>
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png"/>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/inbox.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+  <script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header class="mail-nav">
+
+      <div class="logo">
+          <span id="epic-text">Epic</span><span id="mail-text">.Mail</span>
+      </div>
+
+      <h1 id="page-title">[Sent]</h1>
+
+      <div class="mail-nav-items">
+
+        <a href="#">
+          <div class="image-cropper">
+            <img id="profile-picture" src="../assets/profile_placeholder.png" alt="Profile Picture">
+          </div>
+        </a>
+
+        <ul class="dropdown">
+          <li class="dropdown-item"><a href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a></li>
+          <li class="dropdown-item"><a href="#"><i class='fas fa-upload'></i> &nbsp; Upload profile photo</a></li>
+        </ul>
+        
+      </header>
+
+    </div>
+    
+    <div class="mails">
+
+      <div id="sidebar" class="mail-area-nav-container sidebar">
+        <ul class="mail-area-nav">
+          <li><a class="icon" href="inbox.html" title="Inbox"><i class='fas fa-inbox'></i></a></li>
+          <li><a class="icon" href="compose.html" title="Compose"><i class='fas fa-pen'></i></a></li>
+          <li><a href="groups.html" class="icon" title="Groups"><i class='fas fa-users'></i></a></li>
+          <li><a href="sentmail.html" class="icon" title="Sent"><i class='fas fa-check-double'></i></a></li>
+          <li><a href="drafts.html" class="icon" title="Drafts"><i class='fab fa-firstdraft'></i></a></li>
+        </ul>
+      </div>
+
+      <button id="sidebar-toggle" class="float" onclick="toggleSidebar()">
+        <i class="fas fa-angle-double-left"></i>
+      </button>
+
+      <div class="mail-area">
+
+        <ul class="mail-list">
+
+          <li class="mail-item">
+            <a href="readmail.html">
+              <div id="mail-right" class="truncate">
+                  <span id="mail-sender">1. Kounou Deschant</span>
+                  <span id="mail-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ratione qu</span>
+              </div>
+              <div id="mail-left">
+                  <span id="mail-timestamp">16:47</span>
+                  <span id="mail-delete"><i class='fas fa-trash-alt'></i></span>
+              </div>
+            </a>
+          </li>
+
+          <li class="mail-item">
+            <a href="readmail.html">
+              <div id="mail-right" class="truncate">
+                  <span id="mail-sender">1. Kounou Deschant</span>
+                  <span id="mail-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ratione qu</span>
+              </div>
+              <div id="mail-left">
+                  <span id="mail-timestamp">16:47</span>
+                  <span id="mail-delete"><i class='fas fa-trash-alt'></i></span>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+
+  </div>
+</body>
+</html>
