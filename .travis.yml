@@ -7,6 +7,8 @@ before_install:
 cache: yarn
 notifications:
   email: false
+# after_success:
+#   - npm run coveralls
 env:
   global:
     - NODE_ENV="test"
