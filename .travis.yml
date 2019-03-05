@@ -9,3 +9,6 @@ env:
   - NODE_ENV="test"
   - PORT=3000
   - MORGAN_OPTION="test"
+  - ID_LENGTH=10
+  - MORGAN="tiny"
+  - HASHING_SECRET="thisIsASecrete"
