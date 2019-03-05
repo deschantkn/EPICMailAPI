@@ -7,6 +7,7 @@ before_install:
 cache: yarn
 notifications:
   email: false
+script: 
 env:
   - NODE_ENV="test"
   - PORT=3000

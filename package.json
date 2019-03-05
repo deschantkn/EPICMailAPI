@@ -9,8 +9,7 @@
     "build": "babel server --out-dir dist",
     "serve": "node dist/server.js",
     "lint": "eslint ./server",
-    "debug": "node --inspect-brk ./dist/server.js",
-    "postinstall": "mkdir server/data/users server/data/tokens"
+    "debug": "node --inspect-brk ./dist/server.js"
   },
   "repository": {
     "type": "git",
