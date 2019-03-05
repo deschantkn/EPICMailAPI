@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import fs from 'fs';
-import del from 'del';
+import rimraf from 'rimraf';
 import app from '../server/server';
 
 const should = chai.should();
@@ -9,18 +9,20 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Auth', () => {
-  beforeEach((done) => {
-    del.sync('./server/data/**');
-    fs.mkdir('./server/data/users', { recursive: true }, (err) => {
-      if (err) throw err;
-      fs.mkdir('./server/data/tokens', { recursive: true }, (e) => {
-        if (e) throw e;
-        done();
+  describe('POST - /api/v1/auth/signup', () => {
+    beforeEach((done) => {
+      process.env.NODE_ENV = 'test';
+      rimraf('./server/data', (e) => {
+        fs.mkdir('./server/data/users', { recursive: true }, (uErr) => {
+          if (uErr) throw uErr;
+          fs.mkdir('./server/data/tokens', { recursive: true }, (tErr) => {
+            if (tErr) throw tErr;
+            done();
+          });
+        });
       });
     });
-  });
 
-  describe('POST - /auth/signup', () => {
     it('it should create a new user account', (done) => {
       const user = {
         firstName: 'Deschant',
@@ -40,8 +42,10 @@ describe('Auth', () => {
           done();
         });
     });
+  });
 
-    it('it should login an existing user', (done) => {
+  describe('POST - /api/v1/auth/signin', () => {
+    it('it should login an existing user with valid credentials', (done) => {
       const user = {
         email: 'deschantkounou@epic.mail',
         password: 'R72cal20',
@@ -49,12 +53,44 @@ describe('Auth', () => {
 
       chai
         .request(app)
-        .post('/api/v1/auth/sigin')
+        .post('/api/v1/auth/signin')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.have.property('token');
+          done();
+        });
+    });
+
+    it('it should not login with invalid email', (done) => {
+      const user = {
+        email: 'desfdchantkodfunou@epic.mail',
+        password: 'R72cal20',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
+    });
+
+    it('it should not login with invalid password', (done) => {
+      const user = {
+        email: 'deschantkounou@epic.mail',
+        password: 'R72cafdl20s',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(401);
           done();
         });
     });
