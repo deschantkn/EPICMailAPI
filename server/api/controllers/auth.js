@@ -49,4 +49,7 @@ export default {
       res.status(400).json({ status: 400, error: e });
     }
   },
+  signin: (req, res, next) => {
+    
+  },
 };
