@@ -8,7 +8,8 @@ cache: yarn
 notifications:
   email: false
 env:
-  - NODE_ENV="test"
-  - PORT=3000
-  - ID_LENGTH=10
-  - HASHING_SECRET="thisIsASecrete"
+  global:
+    - NODE_ENV="test"
+    - PORT=3000
+    - ID_LENGTH=10
+    - HASHING_SECRET="thisIsASecret"
