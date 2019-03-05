@@ -7,7 +7,8 @@ before_install:
 cache: yarn
 notifications:
   email: false
-script: 
+before_script: chmod ugo+x scripts/create-data-dirs.sh
+script: ./scripts/create-data-dirs.sh
 env:
   - NODE_ENV="test"
   - PORT=3000
