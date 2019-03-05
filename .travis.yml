@@ -5,10 +5,11 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
   - export PATH="$HOME/.yarn/bin:$PATH"
 cache: yarn
+notifications:
+  email: false
 env:
   - NODE_ENV="test"
   - PORT=3000
-  - MORGAN_OPTION="test"
+  - MORGAN="test"
   - ID_LENGTH=10
-  - MORGAN="tiny"
   - HASHING_SECRET="thisIsASecrete"
