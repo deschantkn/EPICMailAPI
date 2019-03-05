@@ -1,4 +1,3 @@
-import chai from 'chai';
 import assert from 'assert';
 import generateId from '../src/helpers/generateId';
 
