@@ -43,7 +43,7 @@ middleware.register = (app) => {
     // Allow cross origin requests
     .use(cors());
 
-  if (process.env.ENV !== 'test') {
+  if (process.env.NODE_ENV !== 'test') {
     // Logging http requests
     app.use(morgan(environment.morgan));
   }

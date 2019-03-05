@@ -14,6 +14,5 @@ before_script:
 env:
   - NODE_ENV="test"
   - PORT=3000
-  - MORGAN="tiny"
   - ID_LENGTH=10
   - HASHING_SECRET="thisIsASecrete"
