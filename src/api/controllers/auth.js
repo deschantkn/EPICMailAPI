@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator/check';
 import validationHandler from '../../helpers/validationHandler';
+import data from '../../helpers/data';
 
 export default {
   /**
@@ -8,7 +9,7 @@ export default {
   signup: async (req, res, next) => {
     try {
       await validationHandler(next, validationResult(req));
-      
+      // 
       res.json({ data: req.body });
     } catch (e) {
       res.status(400).json({ status: 400, error: e });
