@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive ./tests/*.js --exit --require @babel/register",
-    "start": "nodemon --exec babel-node src/server.js",
-    "build": "babel src --out-dir dist",
+    "start": "nodemon --exec babel-node server/server.js",
+    "build": "babel server --out-dir dist",
     "serve": "node dist/server.js",
-    "lint": "eslint ./src",
+    "lint": "eslint ./server",
     "debug": "node --inspect-brk ./dist/server.js"
   },
   "repository": {
