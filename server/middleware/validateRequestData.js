@@ -17,12 +17,21 @@ export default (method) => {
         body('email', 'Invalid email')
           .isEmail()
           .normalizeEmail(),
-        body('password', 'Password is invalid').matches(passwordRegex),
+        body('password', 'Password is missing or invalid')
+          .not().isEmpty()
+          .matches(passwordRegex),
       ];
     }
 
     case 'signin': {
-      return [];
+      return [
+        body('email', 'Valid email is required')
+          .isEmail()
+          .normalizeEmail(),
+        body('password', 'Password is invalid')
+          .not().isEmpty()
+          .matches(passwordRegex),
+      ];
     }
 
     default:

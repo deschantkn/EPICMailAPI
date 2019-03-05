@@ -46,9 +46,9 @@ lib.read = (dir, file) => new Promise((resolve, reject) => {
   fs.readFile(`${lib.baseDir}${dir}/${file}.json`, 'utf8', (err, data) => {
     if (!err && data) {
       const parsedData = parseJsonToObject(data);
-      resolve(false, parsedData);
+      resolve(parsedData);
     } else {
-      reject(err, data);
+      reject(err);
     }
   });
 });
@@ -104,9 +104,9 @@ lib.list = dir => new Promise((resolve, reject) => {
       data.forEach((fileName) => {
         trimmedFilenames.push(fileName.replace('.json', ''));
       });
-      resolve(false, trimmedFilenames);
+      resolve(trimmedFilenames);
     } else {
-      reject(err, data);
+      reject(err);
     }
   });
 });
