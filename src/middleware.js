@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import expressValidator from 'express-validator';
 import { body } from 'express-validator/check';
+import environment from './config/environments';
 
 const middleware = {};
 
@@ -42,7 +43,7 @@ middleware.register = (app) => {
     // Allow cross origin requests
     .use(cors())
     // Logging http requests
-    .use(morgan(process.env.MORGAN_OPTION));
+    .use(morgan(environment.morgan));
 };
 
 export default middleware;
