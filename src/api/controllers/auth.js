@@ -1,5 +1,5 @@
-import validationHandler from '../../helpers/validationHandler';
 import { validationResult } from 'express-validator/check';
+import validationHandler from '../../helpers/validationHandler';
 
 export default {
   /**
