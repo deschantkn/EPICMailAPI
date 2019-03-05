@@ -1,0 +1,35 @@
+.mail-area {
+  border: none;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 1rem 1rem 0;
+  color: black;
+  border-top: 2px dotted var(--secondary-bg-color);
+}
+
+.message-subject {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.message-details,
+.message-body {
+  margin-bottom: 1rem;
+}
+
+.mail-actions a {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.mail-actions #delete-mail {
+  background: red;
+}
+
+.mail-actions #delete-mail:hover {
+  background: #ff3f3f;
+}

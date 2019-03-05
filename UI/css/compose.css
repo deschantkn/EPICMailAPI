@@ -1,0 +1,40 @@
+.mail-actions {
+  margin-bottom: 1rem;
+}
+
+.mail-editor-container {
+  margin-bottom: 1rem;
+}
+
+.mail .mail-info {
+  width: 20rem;
+}
+
+.mail-info .text-input {
+  border-color: var(--secondary-bg-color);
+}
+
+#mail-editor {
+  height: 90vh;
+}
+
+/* Mobile responsiveness */
+@media(max-width: 768px) {
+  .mail-editor-container {
+    height: 60%;
+  }
+
+  .mail-actions {
+    margin-bottom: .5rem;
+  }
+
+  .mail-actions a {
+    font-size: 1rem;
+    display: block;
+    margin: 1rem 1rem 1rem 1rem;
+  }
+
+  .mail .mail-info {
+    width: inherit;
+  }
+}

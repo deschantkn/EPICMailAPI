@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#6C63FF"/>
+  <title>Epic Mail | Groups</title>
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png"/>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/inbox.css">
+  <link rel="stylesheet" href="../css/groups.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header class="mail-nav">
+
+      <div class="logo">
+          <span id="epic-text">Epic</span><span id="mail-text">.Mail</span>
+      </div>
+
+      <h1 id="page-title">[Groups]</h1>
+
+      <div class="mail-nav-items">
+
+        <a href="#">
+          <div class="image-cropper">
+            <img id="profile-picture" src="../assets/profile_placeholder.png" alt="Profile Picture">
+          </div>
+        </a>
+
+        <ul class="dropdown">
+          <li class="dropdown-item"><a href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a></li>
+          <li class="dropdown-item"><a href="#"><i class='fas fa-upload'></i> &nbsp; Upload profile photo</a></li>
+        </ul>
+        
+      </div>
+
+    </header>
+    
+    <div class="mails">
+
+      <div id="sidebar" class="mail-area-nav-container sidebar">
+        <ul class="mail-area-nav">
+          <li><a class="icon" href="inbox.html" title="Inbox"><i class='fas fa-inbox'></i></a></li>
+          <li><a class="icon" href="compose.html" title="Compose"><i class='fas fa-pen'></i></a></li>
+          <li><a href="groups.html" class="icon" title="Groups"><i class='fas fa-users'></i></a></li>
+          <li><a href="sentmail.html" class="icon" title="Sent"><i class='fas fa-check-double'></i></a></li>
+          <li><a href="drafts.html" class="icon" title="Drafts"><i class='fab fa-firstdraft'></i></a></li>
+        </ul>
+      </div>
+
+      <button id="sidebar-toggle" class="float" onclick="toggleSidebar()">
+        <i class="fas fa-angle-double-left"></i>
+      </button>
+
+      <div class="mail-area">
+        
+        <div class="groups">
+
+          <div class="group-list">
+
+            <h3 class="title">My Groups</h3>
+            <ul>
+              <li>
+                <a href="#" onclick="showGroupMembersModal(1234)" class="secondary-btn">Avengers(2)</a>
+              </li>
+              <li>
+                  <a href="#" onclick="showGroupMembersModal(4567)" class="secondary-btn">Justice League(2)</a>
+              </li>
+            </ul>
+
+            <div class="modal-overlay closed" id="modal-overlay"></div>
+            <div class="modal closed" id="modal">
+              <button class="close-button" id="close-button">Done <i class="fas fa-check"></i></button>
+              <div class="modal-guts">
+                <h1 id="gN" class="title">
+                  <!-- Group Name -->
+                </h1>
+                <ul id="gMbrs">
+                  <li>Barry Allen</li>
+                  <li>Bruce Wayne</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="new-group">
+            <h3 class="title">New Group</h3>
+            <form action="">
+              <label for="group-name" class="label">Name</label>
+              <input class="text-input" type="text" name="groupName" id="group-name" placeholder="Justice League" required>
+              <label for="group-members">Members</label>
+              <textarea class="text-input" name="groupMembers" id="group-members" cols="30" rows="10" placeholder="theflash@epic.mail;brucewayne@epic.mail;wonderwoman@epic.mail" required></textarea>
+              <button type="submit" class="primary-btn">Save</button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+  <script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
