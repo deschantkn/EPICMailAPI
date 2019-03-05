@@ -41,9 +41,12 @@ middleware.register = (app) => {
     .use(bodyParser.urlencoded({ extended: true }))
     .use(expressValidator())
     // Allow cross origin requests
-    .use(cors())
+    .use(cors());
+
+  if (process.env.ENV !== 'test') {
     // Logging http requests
-    .use(morgan(environment.morgan));
+    app.use(morgan(environment.morgan));
+  }
 };
 
 export default middleware;

@@ -1,4 +1,4 @@
-// Parse JSON to object in all cases with throwing
+// Parse JSON to object in all cases without throwing
 export default (str) => {
   try {
     const obj = JSON.parse(str);

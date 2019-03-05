@@ -8,7 +8,8 @@
     "start": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir dist",
     "serve": "node dist/server.js",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "debug": "node --inspect-brk ./dist/server.js"
   },
   "repository": {
     "type": "git",
