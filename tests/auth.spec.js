@@ -11,7 +11,6 @@ chai.use(chaiHttp);
 describe('Auth', () => {
   describe('POST - /api/v1/auth/signup', () => {
     beforeEach((done) => {
-      process.env.NODE_ENV = 'test';
       rimraf('./server/data', (e) => {
         fs.mkdir('./server/data/users', { recursive: true }, (uErr) => {
           if (uErr) throw uErr;
