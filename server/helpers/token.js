@@ -38,14 +38,15 @@ token.create = payload => new Promise(async (resolve, reject) => {
   }
 });
 
-// Verify if a given token id is currently valid for a given user
-token.verifyToken = (tokenId, userId) => new Promise(async (resolve, reject) => {
+// Verify if a given token is currently valid for a given user
+token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
   // Lookup the token
   try {
     const tokenData = await data.read('tokens', tokenId);
-    // Check that the token is valid for the given user and has not exprired
-    if (tokenData.userId === userId && tokenData.expires > Date.now()) {
-      resolve(true);
+
+    // Check that the token has not exprired and return it
+    if (tokenData.expires > Date.now()) {
+      resolve(tokenData);
     } else {
       resolve(false);
     }

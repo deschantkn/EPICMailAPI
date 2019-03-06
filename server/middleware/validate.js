@@ -1,9 +1,31 @@
-import { body } from 'express-validator/check';
+import { body, header } from 'express-validator/check';
+import token from '../helpers/token';
 
 export default (method) => {
   const passwordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})');
 
   switch (method) {
+    case 'checkToken': {
+      return [
+        // eslint-disable-next-line consistent-return
+        header('token', 'Token is invalid').custom(async (value, { req }) => {
+          try {
+            const result = await token.verifyToken(value);
+            if (result) {
+              req.token = result;
+              return true;
+            }
+
+            if (result === false) {
+              return result;
+            }
+          } catch (error) {
+            return new Error('Token is empty or invalid');
+          }
+        }),
+      ];
+    }
+
     case 'createUser': {
       return [
         body('firstName', 'firstName is required')
@@ -36,6 +58,22 @@ export default (method) => {
 
     case 'newMessage': {
       return [
+        // eslint-disable-next-line consistent-return
+        header('token', 'Token is invalid').custom(async (value, { req }) => {
+          try {
+            const result = await token.verifyToken(value);
+            if (result) {
+              req.token = result;
+              return true;
+            }
+
+            if (result === false) {
+              return result;
+            }
+          } catch (error) {
+            return new Error('Token is empty or invalid');
+          }
+        }),
         body('from', 'Email address of sender is missing or invalid')
           .isEmail()
           .normalizeEmail(),
