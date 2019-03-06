@@ -34,6 +34,23 @@ export default (method) => {
       ];
     }
 
+    case 'newMessage': {
+      return [
+        body('from', 'Email address of sender is missing or invalid')
+          .isEmail()
+          .normalizeEmail(),
+        body('to', 'Email address of recipient is missing or invalid')
+          .isEmail()
+          .normalizeEmail(),
+        body('subject', 'Subject is required')
+          .not().isEmpty()
+          .isString(),
+        body('message', 'Email must contain a message')
+          .not().isEmpty()
+          .isString(),
+      ];
+    }
+
     default:
       return [];
   }
