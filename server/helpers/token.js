@@ -42,15 +42,18 @@ token.create = payload => new Promise(async (resolve, reject) => {
 // Verify if a given token is currently valid for a given user
 token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
   // check if admin user
-  if (tokenId === environment.adminToken) {
+  if (tokenId && environment.adminToken && tokenId === environment.adminToken) {
     const adminToken = {
       id: tokenId,
-      userId: 1164407573,
+      userId: 2282995324,
       expires: Date.now() + 1000 * 60 * 60 * 5,
     };
 
     resolve(adminToken);
   } else {
+    if (!tokenId) {
+      resolve(false);
+    }
     // Lookup the token
     try {
       const tokenData = await data.read('tokens', tokenId);

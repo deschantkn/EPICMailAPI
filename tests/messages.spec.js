@@ -44,14 +44,25 @@ describe('Messages', () => {
   });
 
   describe('GET /api/v1/messages', () => {
-    it('it should get all received emails for a user', (done) => {
+    // it('it should get all received emails for a user', (done) => {
+    //   chai
+    //     .request(app)
+    //     .get('/api/v1/messages')
+    //     .set('token', environment.adminToken)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //       res.body.data.should.be.a('array');
+    //       done();
+    //     });
+    // });
+
+    it('it should not get any emails if there are none', (done) => {
       chai
         .request(app)
         .get('/api/v1/messages')
         .set('token', environment.adminToken)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.data.should.be.a('array');
+          res.should.have.status(404);
           done();
         });
     });

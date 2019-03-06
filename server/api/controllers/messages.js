@@ -80,9 +80,10 @@ export default {
         // Filter messages where recipient is this user
         const receivedMessages = messages.filter(msg => msg.to === req.token.userId);
         if (receivedMessages.length <= 0) {
-          res.status(404).json({ status: 404, error: 'No received messages found for this user' });
+          return res.status(404).json({ status: 404, error: 'No received messages found for this user' });
         }
-        res.status(200).json({ status: 200, data: receivedMessages });
+
+        return res.status(200).json({ status: 200, data: receivedMessages });
       });
     } catch (error) {
       res.status(400).json({ status: 400, error: `${error}` });
