@@ -11,7 +11,8 @@
     "lint": "eslint ./server",
     "debug": "node --inspect-brk ./dist/server.js",
     "cover": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha ./tests/*.js -- --require @babel/register",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "docs": "aglio -i server/docs/index.md -o dist/docs/index.html"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "@babel/plugin-transform-regenerator": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "aglio": "^2.3.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "coveralls": "^3.0.3",
