@@ -10,6 +10,7 @@ environments.test = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
+  adminToken: process.env.ADMIN_TOKEN,
 };
 
 // Development (default) environment

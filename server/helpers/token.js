@@ -1,5 +1,6 @@
 import data from './data';
 import createToken from './createToken';
+import environment from '../config/environments';
 
 // Container for all the tokens methods
 const token = {};
@@ -40,18 +41,29 @@ token.create = payload => new Promise(async (resolve, reject) => {
 
 // Verify if a given token is currently valid for a given user
 token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
-  // Lookup the token
-  try {
-    const tokenData = await data.read('tokens', tokenId);
+  // check if admin user
+  if (tokenId === environment.adminToken) {
+    const adminToken = {
+      id: tokenId,
+      userId: 1164407573,
+      expires: 1551888992448,
+    };
 
-    // Check that the token has not exprired and return it
-    if (tokenData.expires > Date.now()) {
-      resolve(tokenData);
-    } else {
-      resolve(false);
+    resolve(adminToken);
+  } else {
+    // Lookup the token
+    try {
+      const tokenData = await data.read('tokens', tokenId);
+
+      // Check that the token has not exprired and return it
+      if (tokenData.expires > Date.now()) {
+        resolve(tokenData);
+      } else {
+        resolve(false);
+      }
+    } catch (tokenReadErr) {
+      reject(tokenReadErr);
     }
-  } catch (tokenReadErr) {
-    reject(tokenReadErr);
   }
 });
 
