@@ -48,6 +48,11 @@ export default (method) => {
         body('message', 'Email must contain a message')
           .not().isEmpty()
           .isString(),
+        body('status', 'Message status is required')
+          .not().isEmpty()
+          .isIn(['draft', 'sent', 'read']),
+        body('parentMessageId', 'parentMessageId is required. 0 if initial message')
+          .isInt(),
       ];
     }
 

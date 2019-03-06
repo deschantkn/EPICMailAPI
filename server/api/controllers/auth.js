@@ -48,9 +48,12 @@ export default {
         }
       }
     } catch (e) {
-      res.status(400).json({ status: 400, error: e });
+      res.status(400).json({ status: 400, error: `${e}` });
     }
   },
+  /**
+   * POST - /auth/sign Signin user
+   */
   signin: async (req, res, next) => {
     try {
       await validationHandler(next, validationResult(req));
@@ -71,7 +74,7 @@ export default {
         // Look for current user
         const foundUser = users.filter(user => user.email === req.body.email);
         if (foundUser.length <= 0) {
-          return res.status(404).json({ status: 404, error: 'Email invalid or not found' });
+          return res.status(404).json({ status: 404, error: 'Email not found' });
         }
 
         // Extract user and compare hashed passwords
@@ -91,7 +94,7 @@ export default {
         return res.status(401).json({ status: 401, error: 'Invalid password' });
       });
     } catch (e) {
-      res.status(400).json({ status: 400, error: e });
+      res.status(400).json({ status: 400, error: `${e}` });
     }
   },
 };
