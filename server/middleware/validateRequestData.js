@@ -34,6 +34,28 @@ export default (method) => {
       ];
     }
 
+    case 'newMessage': {
+      return [
+        body('from', 'Email address of sender is missing or invalid')
+          .isEmail()
+          .normalizeEmail(),
+        body('to', 'Email address of recipient is missing or invalid')
+          .isEmail()
+          .normalizeEmail(),
+        body('subject', 'Subject is required')
+          .not().isEmpty()
+          .isString(),
+        body('message', 'Email must contain a message')
+          .not().isEmpty()
+          .isString(),
+        body('status', 'Message status is required')
+          .not().isEmpty()
+          .isIn(['draft', 'sent', 'read']),
+        body('parentMessageId', 'parentMessageId is required. 0 if initial message')
+          .isInt(),
+      ];
+    }
+
     default:
       return [];
   }

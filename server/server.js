@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 // Serve static assets (documentation url)
+app.use('/', express.static(`${__dirname}/docs`));
 
 // Register middleware
 registerMiddleware(app);
