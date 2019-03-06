@@ -24,7 +24,6 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch user object' });
         }
       }, async () => {
-        // @TODO require token and lookup to see if it is still valid
         // Look for email sender
         const sender = users.filter(user => user.email === req.body.from);
         if (sender.length <= 0) {
@@ -61,7 +60,32 @@ export default {
       res.status(400).json({ status: 400, error: `${e}` });
     }
   },
-  getReceivedMessages: (req, res) => {
-    // Get all messages where current user is the recipient
+  getReceivedMessages: async (req, res, next) => {
+    try {
+      await validationHandler(next, validationResult(req));
+      // List all messages in db
+      const msgIds = await data.list('messages');
+
+      // Fetch all messages
+      const messages = [];
+      async.forEach(msgIds, async (msgId, callback) => {
+        try {
+          const msgObject = await data.read('messages', msgId);
+          messages.push(msgObject);
+          callback();
+        } catch (error) {
+          res.status(500).json({ status: 500, error: 'Could not fetch message object' });
+        }
+      }, () => {
+        // Filter messages where recipient is this user
+        const receivedMessages = messages.filter(msg => msg.to === req.token.userId);
+        if (receivedMessages.length <= 0) {
+          res.status(404).json({ status: 404, error: 'No received messages found for this user' });
+        }
+        res.status(200).json({ status: 200, data: receivedMessages });
+      });
+    } catch (error) {
+      res.status(400).json({ status: 400, error: `${error}` });
+    }
   },
 };
