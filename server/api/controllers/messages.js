@@ -52,7 +52,7 @@ export default {
         try {
           await data.create('messages', id, newMessage);
 
-          return res.status(201).json({ status: 200, data: [newMessage] });
+          return res.status(201).json({ status: 201, data: [newMessage] });
         } catch (e) {
           return res.status(500).json({ status: 500, error: 'Unable to save message' });
         }
@@ -60,5 +60,8 @@ export default {
     } catch (e) {
       res.status(400).json({ status: 400, error: `${e}` });
     }
+  },
+  getReceivedMessages: (req, res) => {
+    // Get all messages where current user is the recipient
   },
 };

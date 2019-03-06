@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import fs from 'fs';
 import rimraf from 'rimraf';
 import app from '../server/server';
+import environment from '../server/config/environments';
 
 const should = chai.should();
 
@@ -32,9 +33,24 @@ describe('Messages', () => {
       chai
         .request(app)
         .post('/api/v1/messages')
+        .set('token', environment.adminToken)
         .send(message)
         .end((err, res) => {
           res.should.have.status(201);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/messages', () => {
+    it('it should get all received emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/messages')
+        .set('token', environment.adminToken)
+        .end((err, res) => {
+          res.should.have.status(200);
           res.body.data.should.be.a('array');
           done();
         });

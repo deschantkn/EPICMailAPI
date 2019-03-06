@@ -46,7 +46,7 @@ token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
     const adminToken = {
       id: tokenId,
       userId: 1164407573,
-      expires: 1551888992448,
+      expires: Date.now() + 1000 * 60 * 60 * 5,
     };
 
     resolve(adminToken);
