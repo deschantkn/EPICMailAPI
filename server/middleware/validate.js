@@ -8,7 +8,7 @@ export default (method) => {
     case 'checkToken': {
       return [
         // eslint-disable-next-line consistent-return
-        header('token', 'Token is missing or invalid').custom(async (value, { req }) => {
+        header('token', 'Token is missing or expired').custom(async (value, { req }) => {
           try {
             const result = await token.verifyToken(value);
             if (result) {
@@ -59,7 +59,7 @@ export default (method) => {
     case 'newMessage': {
       return [
         // eslint-disable-next-line consistent-return
-        header('token', 'Token is invalid').custom(async (value, { req }) => {
+        header('token', 'Token is missing or expired').custom(async (value, { req }) => {
           try {
             const result = await token.verifyToken(value);
             if (result) {
