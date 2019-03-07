@@ -12,7 +12,8 @@
     "debug": "node --inspect-brk ./dist/server.js",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "docs": "aglio -i server/docs/index.md -o dist/docs/index.html"
+    "docs": "aglio -i server/docs/index.md -o dist/docs/index.html",
+    "postinstall": "mkdir -p ./dist/data/messages ./dist/data/tokens ./dist/data/users ./dist/docs && yarn docs"
   },
   "repository": {
     "type": "git",
