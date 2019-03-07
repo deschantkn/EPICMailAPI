@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import validateRequestData from '../../middleware/validateRequestData';
+import validate from '../../middleware/validate';
 import messageController from '../controllers/messages';
 
 const messageRouter = Router();
-messageRouter.post('/', validateRequestData('newMessage'), messageController.newMessage);
+messageRouter.post('/', validate('newMessage'), messageController.newMessage);
+messageRouter.get('/', validate('checkToken'), messageController.getReceivedMessages);
 
 export default messageRouter;
