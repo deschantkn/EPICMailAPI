@@ -118,4 +118,33 @@ export default {
       res.status(400).json({ status: 400, error: `${error}` });
     }
   },
+  getSentMessages: async (req, res, next) => {
+    try {
+      await validationHandler(next, validationResult(req));
+      // List all messages in db
+      const msgIds = await data.list('messages');
+
+      // Fetch all messages for filtering
+      const messages = [];
+      async.forEach(msgIds, async (msgId, callback) => {
+        try {
+          const msgObject = await data.read('messages', msgId);
+          messages.push(msgObject);
+          callback();
+        } catch (error) {
+          res.status(500).json({ status: 500, error: 'Could not fetch message object' });
+        }
+      }, () => {
+        // Filter messages where this user is the sender
+        const sentMessages = messages.filter(msg => msg.from === req.token.userId);
+        if (sentMessages.length <= 0) {
+          return res.status(404).json({ status: 404, error: 'No sent messages found for this user' });
+        }
+
+        return res.status(200).json({ status: 200, data: sentMessages });
+      });
+    } catch (error) {
+      res.status(400).json({ status: 400, error: `${error}` });
+    }
+  },
 };
