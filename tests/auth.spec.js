@@ -30,6 +30,20 @@ describe('Auth', () => {
         password: 'R72cal20',
       };
 
+      // Second user to enable subsequent tests
+      const user2 = {
+        firstName: 'Deschant',
+        lastName: 'Kounou',
+        email: 'juniorkounou@epic.mail',
+        password: 'mangasBoy40',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send(user2)
+        .end();
+
       chai
         .request(app)
         .post('/api/v1/auth/signup')

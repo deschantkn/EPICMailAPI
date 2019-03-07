@@ -23,7 +23,7 @@ describe('Messages', () => {
     it('it should send a message', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'deschantkounou@epic.mail',
+        to: 'juniorkounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
@@ -62,7 +62,40 @@ describe('Messages', () => {
         .get('/api/v1/messages')
         .set('token', environment.adminToken)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.body.should.have.property('status').eql(404);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/messages/unread', () => {
+    let testUsertoken;
+
+    it('it should login test user', (done) => {
+      // login and get test user token
+      const junior = {
+        email: 'juniorkounou@epic.mail',
+        password: 'mangasBoy40',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(junior)
+        .end((err, res) => {
+          testUsertoken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('it should get unread emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/messages/unread')
+        .set('token', testUsertoken)
+        .end((err, res) => {
+          res.body.data.should.be.a('array');
+          res.body.should.have.property('status').eql(200);
           done();
         });
     });
