@@ -14,6 +14,7 @@ deploy:
   api_key: 
     secure: "4c191615-b935-49d2-9fbc-5d3c6a120799"
   app: epicmailapp
+  on: develop
 env:
   global:
     - NODE_ENV="test"
