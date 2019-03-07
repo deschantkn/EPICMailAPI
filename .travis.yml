@@ -9,6 +9,11 @@ notifications:
   email: false
 after_success:
   - yarn cover
+deploy:
+  provider: heroku
+  api_key: 4c191615-b935-49d2-9fbc-5d3c6a120799
+  app: 
+    develop: epicmailapp
 env:
   global:
     - NODE_ENV="test"
