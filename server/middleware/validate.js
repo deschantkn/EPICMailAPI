@@ -1,4 +1,4 @@
-import { body, header } from 'express-validator/check';
+import { body, header, param } from 'express-validator/check';
 import token from '../helpers/token';
 
 export default (method) => {
@@ -7,6 +7,30 @@ export default (method) => {
   switch (method) {
     case 'checkToken': {
       return [
+        // eslint-disable-next-line consistent-return
+        header('token', 'Token is missing or expired').custom(async (value, { req }) => {
+          try {
+            const result = await token.verifyToken(value);
+            if (result) {
+              req.token = result;
+              return true;
+            }
+
+            if (result === false) {
+              return result;
+            }
+          } catch (error) {
+            return new Error('Token is empty or invalid');
+          }
+        }),
+      ];
+    }
+
+    case 'getOne': {
+      return [
+        param('messageId', 'Message id is required in route params')
+          .not().isEmpty()
+          .toInt(10),
         // eslint-disable-next-line consistent-return
         header('token', 'Token is missing or expired').custom(async (value, { req }) => {
           try {

@@ -7,5 +7,6 @@ messageRouter.post('/', validate('newMessage'), messageController.newMessage);
 messageRouter.get('/', validate('checkToken'), messageController.getReceivedMessages);
 messageRouter.get('/unread', validate('checkToken'), messageController.getUnreadMessages);
 messageRouter.get('/sent', validate('checkToken'), messageController.getSentMessages);
+messageRouter.get('/:messageId', validate('getOne'), messageController.getOneMessage);
 
 export default messageRouter;
