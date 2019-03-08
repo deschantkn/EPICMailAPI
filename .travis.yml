@@ -1,25 +1,25 @@
 language: node_js
 node_js:
-  - "lts/*"
+- lts/*
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
-  - export PATH="$HOME/.yarn/bin:$PATH"
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
+- export PATH="$HOME/.yarn/bin:$PATH"
 cache: yarn
 notifications:
   email: false
 after_success:
-  - yarn cover
+- yarn cover
 deploy:
   provider: heroku
-  api_key: 
-    secure: "4c191615-b935-49d2-9fbc-5d3c6a120799"
+  api_key:
+    secure: 4c191615-b935-49d2-9fbc-5d3c6a120799
   app: epicmailapp
   on:
     all_branches: true
 env:
   global:
-    - NODE_ENV="test"
-    - PORT=3000
-    - ID_LENGTH=10
-    - HASHING_SECRET="thisIsASecret"
-    - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"
+  - NODE_ENV="test"
+  - PORT=3000
+  - ID_LENGTH=10
+  - HASHING_SECRET="thisIsASecret"
+  - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"

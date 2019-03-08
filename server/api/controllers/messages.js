@@ -51,7 +51,7 @@ export default {
         try {
           await data.create('messages', id, newMessage);
 
-          return res.status(201).json({ status: 201, data: [newMessage] });
+          return res.status(201).json({ status: 201, data: newMessage });
         } catch (e) {
           return res.status(500).json({ status: 500, error: 'Unable to save message' });
         }
@@ -145,6 +145,24 @@ export default {
       });
     } catch (error) {
       res.status(400).json({ status: 400, error: `${error}` });
+    }
+  },
+  getOneMessage: async (req, res, next) => {
+    try {
+      await validationHandler(next, validationResult(req));
+
+      // Get the message
+      const message = await data.read('messages', req.params.messageId);
+
+      // check if user is owner or receiver of message
+      if ((message.to !== req.token.userId) && (message.from !== req.token.userId)) {
+        return res.status(401).json({ status: 401, error: 'You are not the authorized to get this message because you are not the owner or the sender' });
+      }
+
+      // Return the messages
+      return res.status(200).json({ status: 200, data: message });
+    } catch (error) {
+      return res.status(400).json({ status: 400, error: `${error}` });
     }
   },
 };
