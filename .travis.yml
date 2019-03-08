@@ -1,25 +1,25 @@
 language: node_js
 node_js:
-  - "lts/*"
+- lts/*
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
-  - export PATH="$HOME/.yarn/bin:$PATH"
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
+- export PATH="$HOME/.yarn/bin:$PATH"
 cache: yarn
 notifications:
   email: false
 after_success:
-  - yarn cover
+- yarn cover
 deploy:
   provider: heroku
-  api_key: 
-    secure: "4c191615-b935-49d2-9fbc-5d3c6a120799"
+  api_key:
+    secure: Z7IyuroVi7BoSxeF3O/in6Jrdh5sWRkMCFLwne65yJ5pFz2ET7D5cFAy3XB5BouDlNtS88z9ux76T5J44FfboF86I6g8h0+1/qukIpdUqD1/p2z2rBolD495Zk5Q0jNRX5IijuAsWDWmhIuC4L8VS1i783/vWrzxb2apQh3mhirXC2I5DfQGp/FShXAVUKWzYAGx65AULh4rOsWg31a0HTuObIOljLQbLdOPAlnEAD7ID/01r/ra4M9h2P9IucpTLWQwN+YgsabI99RD3QA2/XcnrFvlcc1WAkOQhytFRKJXYdRz8aXs+KDhIFlK0AMUtN5H+ILduwl5MBq0GyUB616qjUxD85VhuArwRp0BmscR+I+v5PUWUPhPe/u4/J9PAZfWGJuzOkxrjuCVi1vl0xHbOlWwANzcaMJ4kWaeAf+ufdiXNVCok8KeXZeJmMmz7tPxkMebar/69hQZ++32qPjZfXTge/yhPCdpiHfn7NTLG9qTMPJtPa1Hg9MNb+vxWfIsywBADHB1Clv4IGstcqtPsaOgUzsiuIS/lA8qBQL7bhoi3ZNLX+fw9BPlFKW1ryqNialN1tBJH6FfvjsmJECpY8CrpHXdOrk7/xAkukFInUwU/wmtaRXK5BXKT91tI3sdpBSy/C7KxmJMvD9dxJoK+CtmlbtFV9DWJfWkePc=
   app: epicmailapp
   on:
     all_branches: true
 env:
   global:
-    - NODE_ENV="test"
-    - PORT=3000
-    - ID_LENGTH=10
-    - HASHING_SECRET="thisIsASecret"
-    - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"
+  - NODE_ENV="test"
+  - PORT=3000
+  - ID_LENGTH=10
+  - HASHING_SECRET="thisIsASecret"
+  - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"
