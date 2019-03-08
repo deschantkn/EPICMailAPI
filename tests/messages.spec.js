@@ -174,7 +174,7 @@ describe('Messages', () => {
         });
     });
 
-    it('it should send get test message id', (done) => {
+    it('it should get test message id', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
         to: 'juniorkounou@epic.mail',
@@ -199,6 +199,61 @@ describe('Messages', () => {
       chai
         .request(app)
         .get(`/api/v1/messages/${messageId}`)
+        .set('token', testUsertoken)
+        .end((err, res) => {
+          res.body.data.should.be.a('object');
+          res.body.should.have.property('status').eql(200);
+          done();
+        });
+    });
+  });
+
+  describe('DELETE /api/v1/messages/<message-id>', () => {
+    let messageId;
+    let testUsertoken;
+
+    it('it should login first test user', (done) => {
+      // login and get test user token
+      const deschant = {
+        email: 'deschantkounou@epic.mail',
+        password: 'R72cal20',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(deschant)
+        .end((err, res) => {
+          testUsertoken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('it should get test message id', (done) => {
+      const message = {
+        from: 'deschantkounou@epic.mail',
+        to: 'juniorkounou@epic.mail',
+        subject: 'This will be deleted',
+        message: 'SHould not be seen in data',
+        status: 'sent',
+        parentMessageId: 2156986390,
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/messages')
+        .set('token', testUsertoken)
+        .send(message)
+        .end((err, res) => {
+          messageId = res.body.data.id;
+          done();
+        });
+    });
+
+    it('it should delete a message', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/v1/messages/${messageId}`)
         .set('token', testUsertoken)
         .end((err, res) => {
           res.body.data.should.be.a('object');
