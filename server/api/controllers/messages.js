@@ -165,4 +165,27 @@ export default {
       return res.status(400).json({ status: 400, error: `${error}` });
     }
   },
+  deleteOneMessage: async (req, res, next) => {
+    try {
+      await validationHandler(next, validationResult(req));
+
+      // Get the message to be deleted
+      const message = await data.read('messages', req.params.messageId);
+
+      // check if user is owner or receiver of message
+      if ((message.to !== req.token.userId) && (message.from !== req.token.userId)) {
+        return res.status(401).json({ status: 401, error: 'You are not the authorized to delete this message because you are not the owner or the sender' });
+      }
+
+      // Delete the message
+      try {
+        await data.delete('messages', req.params.messageId);
+        return res.status(200).json({ status: 200, data: { message: 'Message was succesfully deleted' } });
+      } catch (error) {
+        return res.status(500).json({ status: 500, error: `There was an error deleteting the message\n${error}` });
+      }
+    } catch (error) {
+      return res.status(400).json({ status: 400, error: `${error}` });
+    }
+  },
 };
