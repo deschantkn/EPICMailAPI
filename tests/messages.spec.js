@@ -37,7 +37,7 @@ describe('Messages', () => {
         .send(message)
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.data.should.be.a('array');
+          res.body.data.should.be.a('object');
           done();
         });
     });
@@ -147,6 +147,61 @@ describe('Messages', () => {
         .set('token', testUsertoken)
         .end((err, res) => {
           res.body.data.should.be.a('array');
+          res.body.should.have.property('status').eql(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/messages/<message-id>', () => {
+    let messageId;
+    let testUsertoken;
+
+    it('it should login first test user', (done) => {
+      // login and get test user token
+      const deschant = {
+        email: 'deschantkounou@epic.mail',
+        password: 'R72cal20',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(deschant)
+        .end((err, res) => {
+          testUsertoken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('it should send get test message id', (done) => {
+      const message = {
+        from: 'deschantkounou@epic.mail',
+        to: 'juniorkounou@epic.mail',
+        subject: 'Test mail',
+        message: 'Hello world',
+        status: 'sent',
+        parentMessageId: 0,
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/messages')
+        .set('token', testUsertoken)
+        .send(message)
+        .end((err, res) => {
+          messageId = res.body.data.id;
+          done();
+        });
+    });
+
+    it('it should get specific email for a user', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/messages/${messageId}`)
+        .set('token', testUsertoken)
+        .end((err, res) => {
+          res.body.data.should.be.a('object');
           res.body.should.have.property('status').eql(200);
           done();
         });

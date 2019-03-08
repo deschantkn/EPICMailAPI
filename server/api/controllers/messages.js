@@ -51,7 +51,7 @@ export default {
         try {
           await data.create('messages', id, newMessage);
 
-          return res.status(201).json({ status: 201, data: [newMessage] });
+          return res.status(201).json({ status: 201, data: newMessage });
         } catch (e) {
           return res.status(500).json({ status: 500, error: 'Unable to save message' });
         }
