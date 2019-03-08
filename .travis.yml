@@ -12,7 +12,7 @@ after_success:
 deploy:
   provider: heroku
   api_key:
-    secure: keLXpafAix3QAkSfvC4f3YS4i1lbT0yBgk81w4oI0GAvIoZ+OMFQbggrdlZAEiL0LnaGpYYWu78UoiEdw8PQ/vQr/q3zPA9cgSIjIJJrPUz8pPWZf+G2vpr02tg7JWZx34op7b9j96N+5KaTQnF3Ux1ufZXMwOg9oIgpQpp+yRqg58iJRKrROWmcVAIvLqbNbbxZd3Hf5mqaP9JHrh83aNGNoYUqrQ7iA0uMkKjBTcfzqHQmciEukPh/ylCsAauFBRETaPwlg1xOOmtEKoo02hk5zsHSSEGbsymQLtEIbGXW4u38csq+PtLwLi5BDeULCAqj5IIp316lbuwvMgkQLFp0vEtbJfxTr+rCLXQXZ2cGNARF4nRH0xjGyk733tSIp7s9SbR2Y1wiqGtNenSyUBoRPFsYarCaO9KRIzjnzesH43q5cSZl/lOVx/J7NBx4C8+sXZ6YId51V0hRpewedIBUwDUsIaCxGhlQOFk/Ss9F9aaHZypV9GY9rVdbwfgU//NRtFiQ5RmTxgTwL5/5x8WuYYoBZiuRfrT/ACKvFqoxUVulD8zi/BITQStyuhCMcXPWnx0X1KPinwApi2LXUeMudN1kKYsqXIIYItDMSwiI0A509bAxxfHbXOVqUO/Q56VFbTzadE02HI6t1Mn5OJ9h8d9Dftza52pKjVgg+PU=
+    secure: 4c191615-b935-49d2-9fbc-5d3c6a120799
   app: epicmailapp
   on:
     all_branches: true
