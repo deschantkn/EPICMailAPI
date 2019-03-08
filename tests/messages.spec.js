@@ -44,17 +44,36 @@ describe('Messages', () => {
   });
 
   describe('GET /api/v1/messages', () => {
-    // it('it should get all received emails for a user', (done) => {
-    //   chai
-    //     .request(app)
-    //     .get('/api/v1/messages')
-    //     .set('token', environment.adminToken)
-    //     .end((err, res) => {
-    //       res.should.have.status(200);
-    //       res.body.data.should.be.a('array');
-    //       done();
-    //     });
-    // });
+    let testUsertoken;
+
+    it('it should login test user', (done) => {
+      // login and get test user token
+      const junior = {
+        email: 'juniorkounou@epic.mail',
+        password: 'mangasBoy40',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(junior)
+        .end((err, res) => {
+          testUsertoken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('it should get all received emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/messages')
+        .set('token', testUsertoken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
 
     it('it should not get any emails if there are none', (done) => {
       chai
@@ -92,6 +111,39 @@ describe('Messages', () => {
       chai
         .request(app)
         .get('/api/v1/messages/unread')
+        .set('token', testUsertoken)
+        .end((err, res) => {
+          res.body.data.should.be.a('array');
+          res.body.should.have.property('status').eql(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/messages/sent', () => {
+    let testUsertoken;
+
+    it('it should login test user', (done) => {
+      // login and get test user token
+      const deschant = {
+        email: 'deschantkounou@epic.mail',
+        password: 'R72cal20',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(deschant)
+        .end((err, res) => {
+          testUsertoken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('it should get sent emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/messages/sent')
         .set('token', testUsertoken)
         .end((err, res) => {
           res.body.data.should.be.a('array');
