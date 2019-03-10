@@ -1,15 +1,29 @@
 FORMAT: 1A
 
-# EPICMail API
+# EPICmail API
 
 The Backbone of plain and simple communication
 
-## Message [/messages]
+# Group Messages
 
-### Get Message [GET]
+Messages related resources in the API.
 
-+ Response 200 (application/json)
+## Message Collection [/messages]
 
-        {
-          "Hello": "world"
-        }
+### Create a new message [GET]
+
++ Response 201 (application/json)
+
+        [
+          {
+            "status":​​ 201,
+            "data":​​ [​ {
+              "id"​:​​ 3694498647,
+              "createdOn"​: "2019-03-08T07:10:51.297Z​",
+              "​subject"​:​​ "New Message",
+              "message":​​ "You can only connect the dots looking backwards",
+              ​"parentMessageId"​:​​ 3876518352,
+              "​status":​​ "sent"​,
+            }​ ]
+          }
+        ]
