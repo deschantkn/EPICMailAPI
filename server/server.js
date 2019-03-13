@@ -17,6 +17,7 @@ registerMiddleware(app);
 app.use('/api/v1', api);
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server listening on port: ${port} in ${process.env.NODE_ENV} mode`);
 });
 
