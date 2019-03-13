@@ -22,7 +22,7 @@ The Backbone of plain and simple communication. This is the Nodejs REST API whic
 ## Steps for running tests
 
 * Change the ```NODE_ENV``` variable value to "test"
-* Run the test script located in the ```package.json``` file
+* Run ```yarn test``` or ```npm test``` if you use npm
 
 ## Documentation
 
