@@ -32,7 +32,7 @@ describe('Auth', () => {
 
       // Second user to enable subsequent tests
       const user2 = {
-        firstName: 'Deschant',
+        firstName: 'Junior',
         lastName: 'Kounou',
         email: 'juniorkounou@epic.mail',
         password: 'mangasBoy40',
