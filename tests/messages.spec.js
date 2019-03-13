@@ -225,7 +225,6 @@ describe('Messages', () => {
         .send(deschant)
         .end((err, res) => {
           testUsertoken = res.body.data.token;
-					console.log('TCL: testUsertoken', testUsertoken);
           done();
         });
     });
