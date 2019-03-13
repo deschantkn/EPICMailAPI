@@ -10,6 +10,15 @@ The Backbone of plain and simple communication. This is the Nodejs REST API whic
 * Create a ```.env``` file at the root of the project and fill out the variables you can find in ```.env.example``` file
 * You can now run ```yarn start``` or the npm equivalent
 
+## Environment Variables
+
+* ```NODE_ENV```: Node environment variable
+* ```PORT```: The server's listening port
+* ```MORGAN```: Morgan request logs formatting options. See valid values [here](https://github.com/expressjs/morgan#predefined-formats).
+* ```ID_LENGTH```: Length of IDs on data objects
+* ```HASHING_SECRET```: String used to hash user passwords
+* ```ADMIN_TOKEN```: Admin token for testing purposes
+
 ## Steps for running tests
 
 * Change the ```NODE_ENV``` variable value to "test"
