@@ -9,6 +9,7 @@ The Backbone of plain and simple communication. This is the Nodejs REST API whic
 * Clone the repo using ```git clone https://github.com/deschant/EPICMailAPI```
 * Run ```yarn install``` or ```npm install``` if you use npm
 * Create a ```.env``` file at the root of the project and fill out the variables you can find in ```.env.example``` file
+* You need to at least set the ```NODE_ENV``` variable's value before running the command in the next step
 * You can now run ```yarn start``` or the npm equivalent
 
 ## Environment Variables
