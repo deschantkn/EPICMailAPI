@@ -52,7 +52,7 @@ token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
     resolve(adminToken);
   } else {
     if (!tokenId) {
-      resolve(false);
+      reject();
     }
     // Lookup the token
     try {

@@ -74,12 +74,18 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
       }, async () => {
-        // Verify the token
-        const tokenData = await token.verifyToken(req.headers.token);
+        let tokenData;
+        try {
+          // Verify the token
+          tokenData = await token.verifyToken(req.headers.token);
+        } catch (error) {
+          res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        }
+
         // Filter messages where recipient is this user
         const receivedMessages = messages.filter(msg => msg.to === tokenData.userId);
         if (receivedMessages.length <= 0) {
-          return res.status(404).json({ status: 404, error: 'No received messages found for this user' });
+          return res.status(404).json({ status: 404, error: 'No received messages found.' });
         }
 
         return res.status(200).json({ status: 200, data: receivedMessages });
@@ -104,8 +110,13 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
       }, async () => {
-        // Verify the token
-        const tokenData = await token.verifyToken(req.headers.token);
+        let tokenData;
+        try {
+          // Verify the token
+          tokenData = await token.verifyToken(req.headers.token);
+        } catch (error) {
+          res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        }
 
         // Filter messages where recipient is this user and status is sent
         const unreadMessages = messages.filter(msg => msg.to === tokenData.userId && msg.status === 'sent');
@@ -135,8 +146,14 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
       }, async () => {
-        // Verify the token
-        const tokenData = await token.verifyToken(req.headers.token);
+        let tokenData;
+        try {
+          // Verify the token
+          tokenData = await token.verifyToken(req.headers.token);
+        } catch (error) {
+          res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        }
+
         // Filter messages where this user is the sender
         const sentMessages = messages.filter(msg => msg.from === tokenData.userId);
         if (sentMessages.length <= 0) {
@@ -151,8 +168,13 @@ export default {
   },
   getOneMessage: async (req, res) => {
     try {
-      // Verify the token
-      const tokenData = await token.verifyToken(req.headers.token);
+      let tokenData;
+      try {
+        // Verify the token
+        tokenData = await token.verifyToken(req.headers.token);
+      } catch (error) {
+        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+      }
 
       // Get the message
       const message = await data.read('messages', req.params.messageId);
@@ -170,8 +192,13 @@ export default {
   },
   deleteOneMessage: async (req, res) => {
     try {
-      // Verify the token
-      const tokenData = await token.verifyToken(req.headers.token);
+      let tokenData;
+      try {
+        // Verify the token
+        tokenData = await token.verifyToken(req.headers.token);
+      } catch (error) {
+        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+      }
 
       // Get the message to be deleted
       const message = await data.read('messages', req.params.messageId);

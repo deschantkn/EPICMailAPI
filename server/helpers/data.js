@@ -105,8 +105,10 @@ lib.list = dir => new Promise((resolve, reject) => {
         trimmedFilenames.push(fileName.replace('.json', ''));
       });
       resolve(trimmedFilenames);
+    } else if (!readErr && data.length === 0) {
+      resolve([]);
     } else {
-      reject(err);
+      reject(readErr);
     }
   });
 });
