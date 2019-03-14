@@ -3,11 +3,11 @@ import validate from '../../middleware/validate';
 import messageController from '../controllers/messages';
 
 const messageRouter = Router();
-messageRouter.post('/', validate('newMessage'), messageController.newMessage);
-messageRouter.get('/', validate('checkToken'), messageController.getReceivedMessages);
-messageRouter.get('/unread', validate('checkToken'), messageController.getUnreadMessages);
-messageRouter.get('/sent', validate('checkToken'), messageController.getSentMessages);
-messageRouter.get('/:messageId', validate('getOne'), messageController.getOneMessage);
-messageRouter.delete('/:messageId', validate('getOne'), messageController.deleteOneMessage);
+messageRouter.post('/', validate(true, 'newMessage'), messageController.newMessage);
+messageRouter.get('/', messageController.getReceivedMessages);
+messageRouter.get('/unread', messageController.getUnreadMessages);
+messageRouter.get('/sent', messageController.getSentMessages);
+messageRouter.get('/:messageId', messageController.getOneMessage);
+messageRouter.delete('/:messageId', messageController.deleteOneMessage);
 
 export default messageRouter;

@@ -1,14 +1,12 @@
-import { validationResult } from 'express-validator/check';
 import async from 'async';
-import validationHandler from '../../helpers/validationHandler';
 import data from '../../helpers/data';
 import generateId from '../../helpers/generateId';
+import token from '../../helpers/token';
 
 
 export default {
-  newMessage: async (req, res, next) => {
+  newMessage: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       // Find the receiver and sender
       // Lists all users in database
       const userIds = await data.list('users');
@@ -60,9 +58,8 @@ export default {
       res.status(400).json({ status: 400, error: `${e}` });
     }
   },
-  getReceivedMessages: async (req, res, next) => {
+  getReceivedMessages: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       // List all messages in db
       const msgIds = await data.list('messages');
 
@@ -76,9 +73,11 @@ export default {
         } catch (error) {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
-      }, () => {
+      }, async () => {
+        // Verify the token
+        const tokenData = await token.verifyToken(req.headers.token);
         // Filter messages where recipient is this user
-        const receivedMessages = messages.filter(msg => msg.to === req.token.userId);
+        const receivedMessages = messages.filter(msg => msg.to === tokenData.userId);
         if (receivedMessages.length <= 0) {
           return res.status(404).json({ status: 404, error: 'No received messages found for this user' });
         }
@@ -89,9 +88,8 @@ export default {
       res.status(400).json({ status: 400, error: `${error}` });
     }
   },
-  getUnreadMessages: async (req, res, next) => {
+  getUnreadMessages: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       // List all messages in db
       const msgIds = await data.list('messages');
 
@@ -105,9 +103,12 @@ export default {
         } catch (error) {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
-      }, () => {
+      }, async () => {
+        // Verify the token
+        const tokenData = await token.verifyToken(req.headers.token);
+
         // Filter messages where recipient is this user and status is sent
-        const unreadMessages = messages.filter(msg => msg.to === req.token.userId && msg.status === 'sent');
+        const unreadMessages = messages.filter(msg => msg.to === tokenData.userId && msg.status === 'sent');
         if (unreadMessages.length <= 0) {
           return res.status(404).json({ status: 404, error: 'No received messages found for this user' });
         }
@@ -118,9 +119,8 @@ export default {
       res.status(400).json({ status: 400, error: `${error}` });
     }
   },
-  getSentMessages: async (req, res, next) => {
+  getSentMessages: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       // List all messages in db
       const msgIds = await data.list('messages');
 
@@ -134,9 +134,11 @@ export default {
         } catch (error) {
           res.status(500).json({ status: 500, error: 'Could not fetch message object' });
         }
-      }, () => {
+      }, async () => {
+        // Verify the token
+        const tokenData = await token.verifyToken(req.headers.token);
         // Filter messages where this user is the sender
-        const sentMessages = messages.filter(msg => msg.from === req.token.userId);
+        const sentMessages = messages.filter(msg => msg.from === tokenData.userId);
         if (sentMessages.length <= 0) {
           return res.status(404).json({ status: 404, error: 'No sent messages found for this user' });
         }
@@ -147,15 +149,16 @@ export default {
       res.status(400).json({ status: 400, error: `${error}` });
     }
   },
-  getOneMessage: async (req, res, next) => {
+  getOneMessage: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
+      // Verify the token
+      const tokenData = await token.verifyToken(req.headers.token);
 
       // Get the message
       const message = await data.read('messages', req.params.messageId);
 
       // check if user is owner or receiver of message
-      if ((message.to !== req.token.userId) && (message.from !== req.token.userId)) {
+      if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {
         return res.status(401).json({ status: 401, error: 'You are not the authorized to get this message because you are not the owner or the sender' });
       }
 
@@ -165,15 +168,16 @@ export default {
       return res.status(400).json({ status: 400, error: `${error}` });
     }
   },
-  deleteOneMessage: async (req, res, next) => {
+  deleteOneMessage: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
+      // Verify the token
+      const tokenData = await token.verifyToken(req.headers.token);
 
       // Get the message to be deleted
       const message = await data.read('messages', req.params.messageId);
 
       // check if user is owner or receiver of message
-      if ((message.to !== req.token.userId) && (message.from !== req.token.userId)) {
+      if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {
         return res.status(401).json({ status: 401, error: 'You are not the authorized to delete this message because you are not the owner or the sender' });
       }
 

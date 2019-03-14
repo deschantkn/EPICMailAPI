@@ -1,6 +1,4 @@
-import { validationResult } from 'express-validator/check';
 import async from 'async';
-import validationHandler from '../../helpers/validationHandler';
 import data from '../../helpers/data';
 import generateId from '../../helpers/generateId';
 import createHash from '../../helpers/createHash';
@@ -10,9 +8,8 @@ export default {
   /**
    * POST - /auth/signup Create a new user
    */
-  signup: async (req, res, next) => {
+  signup: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       const id = generateId();
       // Make sure user does not exist
       try {
@@ -54,9 +51,8 @@ export default {
   /**
    * POST - /auth/sign Signin user
    */
-  signin: async (req, res, next) => {
+  signin: async (req, res) => {
     try {
-      await validationHandler(next, validationResult(req));
       // Lists all users in database
       const userIds = await data.list('users');
 
