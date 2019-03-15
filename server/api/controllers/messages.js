@@ -217,7 +217,7 @@ export default {
 
       // Delete the message
       try {
-        await data.delete('messages', req.params.messageId);
+        await data.delete('messages', parseInt(req.params.messageId, 10));
         return res.status(200).json({ status: 200, data: { message: 'Message was succesfully deleted' } });
       } catch (error) {
         return res.status(500).json({ status: 500, error: `There was an error deleteting the message\n${error}` });

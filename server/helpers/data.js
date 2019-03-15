@@ -44,8 +44,14 @@ lib.read = (dir, file) => new Promise((resolve, reject) => {
 lib.delete = (dir, file) => new Promise((resolve, reject) => {
   if (dir in db) {
     const data = db[dir].filter(d => d.id !== file);
-    db[dir].splice(0).push(data);
-    resolve(false);
+    db[dir].splice(0);
+    // Refill the data
+    async.forEach(data, (item, callback) => {
+      db[dir].push(item);
+      callback();
+    }, () => {
+      resolve(false);
+    });
   } else {
     reject(new Error('Data does not exist'));
   }
