@@ -11,6 +11,7 @@ environments.test = {
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   adminToken: process.env.ADMIN_TOKEN,
+  dbUrl: process.env.DB_URL,
 };
 
 // Development (default) environment
@@ -18,13 +19,15 @@ environments.development = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
+  dbUrl: process.env.DB_URL,
 };
 
 // Production environment
-environments.production = {
+environments.staging = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
+  dbUrl: process.env.DB_URL,
 };
 
 // Determine which environment we are in
