@@ -22,6 +22,13 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch user object' });
         }
       }, async () => {
+        try {
+          // Verify the token
+          await token.verifyToken(req.headers.token);
+        } catch (error) {
+          return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        }
+
         // Look for email sender
         const sender = users.filter(user => user.email === req.body.from);
         if (sender.length <= 0) {
