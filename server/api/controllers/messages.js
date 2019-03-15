@@ -177,7 +177,7 @@ export default {
       }
 
       // Get the message
-      const message = await data.read('messages', req.params.messageId);
+      const message = await data.read('messages', parseInt(req.params.messageId, 10));
 
       // check if user is owner or receiver of message
       if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {
@@ -197,11 +197,11 @@ export default {
         // Verify the token
         tokenData = await token.verifyToken(req.headers.token);
       } catch (error) {
-        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
       }
 
       // Get the message to be deleted
-      const message = await data.read('messages', req.params.messageId);
+      const message = await data.read('messages', parseInt(req.params.messageId, 10));
 
       // check if user is owner or receiver of message
       if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {

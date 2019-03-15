@@ -57,7 +57,6 @@ token.verifyToken = tokenId => new Promise(async (resolve, reject) => {
     // Lookup the token
     try {
       const tokenData = await data.read('tokens', tokenId);
-			console.log('TCL: tokenData', tokenData);
 
       // Check that the token has not exprired and return it
       if (tokenData.expires > Date.now()) {

@@ -3,10 +3,8 @@
  */
 
 //  Dependencies
-import fs from 'fs';
 import path from 'path';
 import async from 'async';
-import parseJsonToObject from './jsonToObject';
 
 const db = {
   tokens: [],
@@ -33,7 +31,7 @@ lib.create = (dir, file, newData) => new Promise((resolve, reject) => {
 // Read data from a file
 lib.read = (dir, file) => new Promise((resolve, reject) => {
   if (dir in db) {
-    const result = db[dir].filter(data => data.id === parseInt(file, 10));
+    const result = db[dir].filter(data => data.id === file);
     if (result.length === 0) {
       reject(new Error('Data does not exist'));
     }
@@ -66,20 +64,6 @@ lib.list = dir => new Promise((resolve, reject) => {
   } else {
     reject(new Error('Data does not exist'));
   }
-
-  fs.readdir(`${lib.baseDir}${dir}/`, (readErr, data) => {
-    if (!readErr && data && data.length > 0) {
-      const trimmedFilenames = [];
-      data.forEach((fileName) => {
-        trimmedFilenames.push(fileName.replace('.json', ''));
-      });
-      resolve(trimmedFilenames);
-    } else if (!readErr && data.length === 0) {
-      resolve([]);
-    } else {
-      reject(readErr);
-    }
-  });
 });
 
 export default lib;
