@@ -5,7 +5,14 @@
 //  Dependencies
 import fs from 'fs';
 import path from 'path';
+import async from 'async';
 import parseJsonToObject from './jsonToObject';
+
+const db = {
+  tokens: [],
+  messages: [],
+  users: [],
+};
 
 // Container for the module (to be exported)
 const lib = {};
@@ -14,90 +21,52 @@ const lib = {};
 lib.baseDir = path.join(__dirname, '/../data/');
 
 // Write data to a file
-lib.create = (dir, file, data) => new Promise((resolve, reject) => {
-  // Open the file for writing
-  fs.open(`${lib.baseDir}${dir}/${file}.json`, 'wx', (openError, fileDescriptor) => {
-    if (!openError && fileDescriptor) {
-      // Convert data to string
-      const stringData = JSON.stringify(data);
-
-      // Write to file and close it
-      fs.writeFile(fileDescriptor, stringData, (writeErr) => {
-        if (!writeErr) {
-          fs.close(fileDescriptor, (closeErr) => {
-            if (!closeErr) {
-              resolve(false);
-            } else {
-              reject(closeErr);
-            }
-          });
-        } else {
-          reject(writeErr);
-        }
-      });
-    } else {
-      reject(openError);
-    }
-  });
+lib.create = (dir, file, newData) => new Promise((resolve, reject) => {
+  if (dir in db) {
+    db[dir].push(newData);
+    resolve(false);
+  } else {
+    reject(new Error('Data does not exist'));
+  }
 });
 
 // Read data from a file
 lib.read = (dir, file) => new Promise((resolve, reject) => {
-  fs.readFile(`${lib.baseDir}${dir}/${file}.json`, 'utf8', (err, data) => {
-    if (!err && data) {
-      const parsedData = parseJsonToObject(data);
-      resolve(parsedData);
-    } else {
-      reject(err);
+  if (dir in db) {
+    const result = db[dir].filter(data => data.id === parseInt(file, 10));
+    if (result.length === 0) {
+      reject(new Error('Data does not exist'));
     }
-  });
-});
-
-// Update data inside a file
-lib.update = (dir, file, data) => new Promise((resolve, reject) => {
-  // Open the file for writing
-  fs.open(`${lib.baseDir}${dir}/${file}.json`, 'r+', (openErr, fileDescriptor) => {
-    if (!openErr && fileDescriptor) {
-      const stringData = JSON.stringify(data);
-      // Truncate the file
-      fs.truncate(fileDescriptor, (truncateErr) => {
-        if (!truncateErr) {
-          fs.writeFile(fileDescriptor, stringData, (writeErr) => {
-            if (!writeErr) {
-              fs.close(fileDescriptor, (closeErr) => {
-                if (!closeErr) {
-                  resolve(false);
-                } else {
-                  reject(closeErr);
-                }
-              });
-            } else {
-              reject(writeErr);
-            }
-          });
-        } else {
-          reject(truncateErr);
-        }
-      });
-    } else {
-      reject(openErr);
-    }
-  });
+    resolve(result[0]);
+  } else {
+    reject(new Error('Data does not exist'));
+  }
 });
 
 lib.delete = (dir, file) => new Promise((resolve, reject) => {
-  // Unlink the file
-  fs.unlink(`${lib.baseDir}${dir}/${file}.json`, (unlinkErr) => {
-    if (!unlinkErr) {
-      resolve(false);
-    } else {
-      reject(unlinkErr);
-    }
-  });
+  if (dir in db) {
+    const data = db[dir].filter(d => d.id !== file);
+    db[dir].splice(0).push(data);
+    resolve(false);
+  } else {
+    reject(new Error('Data does not exist'));
+  }
 });
 
 // List all the items in a directory
 lib.list = dir => new Promise((resolve, reject) => {
+  if (dir in db) {
+    const trimmedFilenames = [];
+    async.forEach(db[dir], (item, callback) => {
+      trimmedFilenames.push(item.id);
+      callback();
+    }, () => {
+      resolve(trimmedFilenames);
+    });
+  } else {
+    reject(new Error('Data does not exist'));
+  }
+
   fs.readdir(`${lib.baseDir}${dir}/`, (readErr, data) => {
     if (!readErr && data && data.length > 0) {
       const trimmedFilenames = [];

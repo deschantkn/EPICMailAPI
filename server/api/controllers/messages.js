@@ -173,7 +173,7 @@ export default {
         // Verify the token
         tokenData = await token.verifyToken(req.headers.token);
       } catch (error) {
-        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
       }
 
       // Get the message

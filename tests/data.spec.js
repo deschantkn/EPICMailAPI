@@ -29,12 +29,12 @@ describe('Data Helper', () => {
     });
   });
 
-  describe('Update file', () => {
-    it('it should update data to a json file', async () => {
-      const result = await data.update('mock', 'testfile', { dummy: 'new data' });
-      expect(result).to.equal(false);
-    });
-  });
+  // describe('Update file', () => {
+  //   it('it should update data to a json file', async () => {
+  //     const result = await data.update('mock', 'testfile', { dummy: 'new data' });
+  //     expect(result).to.equal(false);
+  //   });
+  // });
 
   describe('Delete file', () => {
     it('it should delete existing json file', async () => {

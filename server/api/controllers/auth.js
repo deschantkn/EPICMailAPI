@@ -38,7 +38,7 @@ export default {
 
             res.status(201).json({ status: 201, data: { token: newToken.id } });
           } catch (createErr) {
-            res.status(500).json({ status: 500, error: 'Could not create new user' });
+            res.status(500).json({ status: 500, error: `${createErr}` });
           }
         } else {
           res.status(500).json({ status: 500, error: 'Could not hash password' });
@@ -55,6 +55,7 @@ export default {
     try {
       // Lists all users in database
       const userIds = await data.list('users');
+			console.log('TCL: userIds', userIds);
 
       // Fetch all users
       const users = [];
@@ -62,6 +63,8 @@ export default {
         try {
           const userObject = await data.read('users', userId);
           users.push(userObject);
+					console.log('TCL: users', users);
+					console.log('TCL: userObject', userObject);
           callback();
         } catch (error) {
           res.status(500).json({ status: 500, error: 'Could not fetch user object' });
