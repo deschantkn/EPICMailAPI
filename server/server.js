@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import api from './api';
 import v2 from './v2';
 import registerMiddleware from './middleware/registerMiddleware';
-import { connect } from './db';
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -17,7 +16,6 @@ app.use('/', express.static(`${__dirname}/docs`));
 registerMiddleware(app);
 
 app.use('/api/v1', api);
-connect();
 app.use('/api/v2', v2);
 
 app.listen(port, () => {
