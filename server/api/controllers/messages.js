@@ -22,6 +22,13 @@ export default {
           res.status(500).json({ status: 500, error: 'Could not fetch user object' });
         }
       }, async () => {
+        try {
+          // Verify the token
+          await token.verifyToken(req.headers.token);
+        } catch (error) {
+          return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        }
+
         // Look for email sender
         const sender = users.filter(user => user.email === req.body.from);
         if (sender.length <= 0) {
@@ -173,11 +180,11 @@ export default {
         // Verify the token
         tokenData = await token.verifyToken(req.headers.token);
       } catch (error) {
-        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
       }
 
       // Get the message
-      const message = await data.read('messages', req.params.messageId);
+      const message = await data.read('messages', parseInt(req.params.messageId, 10));
 
       // check if user is owner or receiver of message
       if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {
@@ -197,11 +204,11 @@ export default {
         // Verify the token
         tokenData = await token.verifyToken(req.headers.token);
       } catch (error) {
-        res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
+        return res.status(401).json({ status: 401, error: 'Invalid or missing request token' });
       }
 
       // Get the message to be deleted
-      const message = await data.read('messages', req.params.messageId);
+      const message = await data.read('messages', parseInt(req.params.messageId, 10));
 
       // check if user is owner or receiver of message
       if ((message.to !== tokenData.userId) && (message.from !== tokenData.userId)) {
@@ -210,7 +217,7 @@ export default {
 
       // Delete the message
       try {
-        await data.delete('messages', req.params.messageId);
+        await data.delete('messages', parseInt(req.params.messageId, 10));
         return res.status(200).json({ status: 200, data: { message: 'Message was succesfully deleted' } });
       } catch (error) {
         return res.status(500).json({ status: 500, error: `There was an error deleteting the message\n${error}` });

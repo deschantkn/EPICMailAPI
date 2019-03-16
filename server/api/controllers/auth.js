@@ -38,7 +38,7 @@ export default {
 
             res.status(201).json({ status: 201, data: { token: newToken.id } });
           } catch (createErr) {
-            res.status(500).json({ status: 500, error: 'Could not create new user' });
+            res.status(500).json({ status: 500, error: `${createErr}` });
           }
         } else {
           res.status(500).json({ status: 500, error: 'Could not hash password' });

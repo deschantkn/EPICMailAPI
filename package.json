@@ -6,12 +6,11 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive ./tests/*.js --exit --require @babel/register",
     "start": "nodemon --exec babel-node server/server.js",
-    "build": "babel server --out-dir dist && mkdir -p ./dist/data/messages ./dist/data/tokens ./dist/data/users ./dist/docs && yarn docs",
+    "build": "babel server --out-dir dist && mkdir -p ./dist/docs && yarn docs",
     "serve": "node dist/server.js",
     "lint": "eslint ./server",
     "debug": "node --inspect-brk ./dist/server.js",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "docs": "aglio -i server/docs/index.md -o dist/docs/index.html"
   },
   "repository": {
