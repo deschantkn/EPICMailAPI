@@ -11,15 +11,12 @@ pool.on('connect', () => {
   console.log('Database successfully connected');
 });
 
-pool.query('SELECT NOW()', () => {
-  pool.end();
-});
-
 pool.on('error', (err) => {
   console.error('Error acquiring client', err.message);
 });
 
 const createTables = () => new Promise(async (resolve, reject) => {
+  console.log('Creating tables');
   const queryText = `
     CREATE TABLE IF NOT EXISTS
     users(
@@ -56,35 +53,27 @@ const createTables = () => new Promise(async (resolve, reject) => {
 
   try {
     await pool.query(queryText);
-    await pool.end();
     resolve();
   } catch (error) {
-    await pool.end();
     reject(error);
   }
 });
 
 const dropTables = async () => new Promise(async (resolve, reject) => {
+  console.log('Dropping tables');
   const queryText = `
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS  messages CASCADE;
-    DROP TABLE IF EXISTS  groups CASCADE;
-    DROP TABLE IF EXISTS  group_members CASCADE;
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS messages CASCADE;
+    DROP TABLE IF EXISTS groups CASCADE;
+    DROP TABLE IF EXISTS group_members CASCADE;
   `;
 
   try {
     await pool.query(queryText);
-    await pool.end();
     resolve();
   } catch (error) {
-    await pool.end();
     reject(error);
   }
-});
-
-pool.on('remove', () => {
-  console.log('client removed');
-  process.exit(0);
 });
 
 export { createTables, dropTables };
