@@ -18,12 +18,6 @@ deploy:
     all_branches: true
 services:
   - postgresql
-addons:
-  postgresql: "11"
-  apt:
-    packages:
-    - postgresql-11
-    - postgresql-client-11
 before_script:
   - psql -c 'create database epicmail_db;' -U postgres
 env:
@@ -33,4 +27,3 @@ env:
   - ID_LENGTH=10
   - HASHING_SECRET="thisIsASecret"
   - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"
-  - PGPORT=5433
