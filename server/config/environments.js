@@ -20,6 +20,7 @@ environments.development = {
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   dbUrl: process.env.DB_URL,
+  secret: process.env.TOKEN_SECRET,
 };
 
 // Production environment

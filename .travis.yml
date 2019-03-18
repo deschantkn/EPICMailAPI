@@ -20,10 +20,3 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database epicmail_db;' -U postgres
-env:
-  global:
-  - NODE_ENV="test"
-  - PORT=3000
-  - ID_LENGTH=10
-  - HASHING_SECRET="thisIsASecret"
-  - ADMIN_TOKEN="6zo2n5q7gjysiqp7o1k"
