@@ -12,7 +12,7 @@ environments.test = {
   adminToken: process.env.ADMIN_TOKEN,
   secret: process.env.TOKEN_SECRET,
   salt: process.env.SALT,
-  dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
+  dbUrl: process.env.DB_URL,
 };
 
 environments.local = {
