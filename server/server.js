@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import api from './api';
 import v2 from './v2';
+import { createTables, dropTables } from './db';
 import registerMiddleware from './middleware/registerMiddleware';
 
 dotenv.config();
@@ -14,6 +15,13 @@ app.use('/', express.static(`${__dirname}/docs`));
 
 // Register middleware
 registerMiddleware(app);
+
+// You may add api specific middlewares here
+if (process.env.NODE_ENV === 'dev') {
+  dropTables().then(() => {
+    createTables();
+  });
+}
 
 app.use('/api/v1', api);
 app.use('/api/v2', v2);
