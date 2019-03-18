@@ -11,10 +11,10 @@ environments.test = {
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   adminToken: process.env.ADMIN_TOKEN,
-  dbUrl: process.env.DB_URL,
+  // dbUrl: process.env.DB_URL,
   secret: process.env.TOKEN_SECRET,
   salt: process.env.SALT,
-  // dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
+  dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
 };
 
 // Development (default) environment
