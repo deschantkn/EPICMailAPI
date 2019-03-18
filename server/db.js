@@ -24,7 +24,7 @@ const createTables = () => new Promise(async (resolve, reject) => {
       firstName VARCHAR(128) NOT NULL,
       lastName VARCHAR(128) NOT NULL,
       password VARCHAR(128) NOT NULL,
-      email VARCHAR(128) NOT NULL
+      email VARCHAR(128) UNIQUE NOT NULL
     );
     CREATE TABLE IF NOT EXISTS
     groups(
