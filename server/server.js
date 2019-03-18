@@ -21,6 +21,8 @@ if (process.env.NODE_ENV === 'dev') {
   dropTables().then(() => {
     createTables();
   });
+} else {
+  createTables()
 }
 
 app.use('/api/v1', api);

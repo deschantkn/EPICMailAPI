@@ -8,15 +8,15 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Auth v2', () => {
-  before((done) => {
-    dropTables().then(() => {
-      createTables().then(() => {
-        done();
+  describe('POST - /api/v2/auth/signup', () => {
+    before((done) => {
+      dropTables().then(() => {
+        createTables().then(() => {
+          done();
+        });
       });
     });
-  });
-
-  describe('POST - /api/v2/auth/signup', () => {
+    
     it('it should create a new user account', (done) => {
       const user = {
         firstName: 'Deschant',
