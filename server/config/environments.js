@@ -11,7 +11,10 @@ environments.test = {
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   adminToken: process.env.ADMIN_TOKEN,
-  dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
+  dbUrl: process.env.DB_URL,
+  secret: process.env.TOKEN_SECRET,
+  salt: process.env.SALT,
+  // dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
 };
 
 // Development (default) environment
@@ -21,6 +24,7 @@ environments.development = {
   hashingSecret: process.env.HASHING_SECRET,
   dbUrl: process.env.DB_URL,
   secret: process.env.TOKEN_SECRET,
+  salt: process.env.SALT,
 };
 
 // Production environment
@@ -29,6 +33,8 @@ environments.staging = {
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   dbUrl: process.env.DATABASE_URL,
+  salt: process.env.SALT,
+  secret: process.env.TOKEN_SECRET,
 };
 
 // Determine which environment we are in

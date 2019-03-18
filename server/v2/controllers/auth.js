@@ -1,10 +1,6 @@
-import async from 'async';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import db from '../../db/index';
-import data from '../../helpers/data';
-import generateId from '../../helpers/generateId';
-import createHash from '../../helpers/createHash';
 import environment from '../../config/environments';
 
 export default {
@@ -36,10 +32,30 @@ export default {
       // return success response
       return res.status(201).json({ status: 201, data: [{ token }] });
     } catch (error) {
-      return res.status(500).json({ status: 500, error: `Error creating user account, ${error}` });
+      return res.status(500).json({ status: 500, error: `Unable to create user account: ${error}` });
     }
   },
-  // signin: async (req, res) => {
+  signin: async (req, res) => {
+    // Find user
+    const findOneUser = 'SELECT id, password FROM users WHERE email = $1;';
+    try {
+      const { rows } = await db.query(findOneUser, [req.body.email]);
+      // if no user if found
+      if (rows.length === 0) {
+        return res.status(400).json({ status: 400, message: `Could not find user ${req.body.email}` });
+      }
 
-  // },
+      // compare passwords
+      const passwordIsValid = bcrypt.compareSync(req.body.password, rows[0].password);
+      if (passwordIsValid) {
+        // create token
+        const token = jwt.sign({ id: rows[0].id }, environment.secret, { expiresIn: 86400 });
+        return res.status(200).json({ status: 200, data: [{ token }] });
+      }
+
+      return res.status(401).json({ status: 401, message: 'Try again, password is invalid' });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `Could not find user: ${error}` });
+    }
+  },
 };
