@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import express from 'express';
 import dotenv from 'dotenv';
 import api from './api';
+import v2 from './v2';
 import registerMiddleware from './middleware/registerMiddleware';
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use('/', express.static(`${__dirname}/docs`));
 registerMiddleware(app);
 
 app.use('/api/v1', api);
+app.use('/api/v2', v2);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
