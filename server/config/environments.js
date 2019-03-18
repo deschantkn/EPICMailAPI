@@ -27,7 +27,7 @@ environments.staging = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
-  dbUrl: process.env.DB_URL,
+  dbUrl: process.env.DATABASE_URL,
 };
 
 // Determine which environment we are in
