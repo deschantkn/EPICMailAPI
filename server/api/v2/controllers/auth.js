@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import db from '../../db/index';
-import environment from '../../config/environments';
+import db from '../../../db/index';
+import environment from '../../../config/environments';
 
 export default {
   /**
    * POST - /auth/signup Create a new user
    */
   signup: async (req, res) => {
+    console.log('Hi');
     // hash password
     const hashedPassword = await bcrypt.hash(req.body.password, 8);
 

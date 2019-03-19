@@ -2,11 +2,10 @@ import express from 'express';
 import authRouter from './authRouter';
 import messageRouter from './messageRouter';
 
-const api = express();
-
+const v1 = express();
 // You may add api specific middlewares here
 
-api.use('/auth', authRouter);
-api.use('/messages', messageRouter);
+v1.use('/auth', authRouter);
+v1.use('/messages', messageRouter);
 
-export default api;
+export default v1;

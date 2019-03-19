@@ -1,7 +1,7 @@
 import async from 'async';
-import data from '../../helpers/data';
-import generateId from '../../helpers/generateId';
-import token from '../../helpers/token';
+import data from '../../../helpers/data';
+import generateId from '../../../helpers/generateId';
+import token from '../../../helpers/token';
 
 
 export default {

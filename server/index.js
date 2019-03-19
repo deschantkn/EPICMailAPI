@@ -1,8 +1,8 @@
 import '@babel/polyfill';
 import express from 'express';
 import dotenv from 'dotenv';
-import api from './api/routes';
-import v2 from './v2/routes';
+import v1 from './api/v1/routes';
+import v2 from './api/v2/routes';
 import { createTables, dropTables } from './helpers/db';
 import registerMiddleware from './middleware/registerMiddleware';
 
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'dev') {
   createTables();
 }
 
-app.use('/api/v1', api);
+app.use('/api/v1', v1);
 app.use('/api/v2', v2);
 
 app.listen(port, () => {

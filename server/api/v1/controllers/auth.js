@@ -1,14 +1,15 @@
 import async from 'async';
-import data from '../../helpers/data';
-import generateId from '../../helpers/generateId';
-import createHash from '../../helpers/createHash';
-import token from '../../helpers/token';
+import data from '../../../helpers/data';
+import generateId from '../../../helpers/generateId';
+import createHash from '../../../helpers/createHash';
+import token from '../../../helpers/token';
 
 export default {
   /**
    * POST - /auth/signup Create a new user
    */
   signup: async (req, res) => {
+    console.log('Hi');
     try {
       const id = generateId();
       // Make sure user does not exist
