@@ -68,6 +68,23 @@ describe('Auth v2', () => {
           done();
         });
     });
+
+    it('it should not signup with a duplicate email', (done) => {
+      const testuser = {
+        firstName: 'Ggfg',
+        email: 'natsudragneel@epic.mail',
+        password: 'sgfdsgfgs',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v2/auth/signup')
+        .send(testuser)
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
   });
 
   describe('POST - /api/v2/auth/signin', () => {
