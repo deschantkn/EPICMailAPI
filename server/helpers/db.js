@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 import { Pool } from 'pg';
-import environment from './config/environments';
+import environment from '../config/environments';
 
 const pool = new Pool({
   connectionString: environment.dbUrl,

@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/server';
-import { createTables, dropTables } from '../server/db';
+import { createTables, dropTables } from '../server/helpers/db';
 
 const should = chai.should();
 
@@ -16,7 +16,7 @@ describe('Auth v2', () => {
         });
       });
     });
-    
+
     it('it should create a new user account', (done) => {
       const user = {
         firstName: 'Deschant',
