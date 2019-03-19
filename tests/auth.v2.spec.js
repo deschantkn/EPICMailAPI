@@ -82,7 +82,7 @@ describe('Auth v2', () => {
         .post('/api/v2/auth/signin')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(401);
           done();
         });
     });
