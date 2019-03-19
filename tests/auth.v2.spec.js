@@ -50,6 +50,24 @@ describe('Auth v2', () => {
           done();
         });
     });
+
+    it('it should not signup with missing required fields', (done) => {
+      const user2 = {
+        firstName: 'Natsu',
+        email: 'natsudragneel@epic.mail',
+        password: 'mangasBoy40',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v2/auth/signup')
+        .send(user2)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
   });
 
   describe('POST - /api/v2/auth/signin', () => {
