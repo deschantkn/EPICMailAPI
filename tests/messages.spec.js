@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import fs from 'fs';
-import rimraf from 'rimraf';
-import app from '../server/server';
+import app from '../server';
 import environment from '../server/config/environments';
 
 const should = chai.should();
@@ -11,15 +9,6 @@ chai.use(chaiHttp);
 
 describe('Messages', () => {
   describe('POST - /api/v1/messages', () => {
-    beforeEach((done) => {
-      rimraf('./server/data/messages', (e) => {
-        fs.mkdir('./server/data/messages', { recursive: true }, (uErr) => {
-          if (uErr) throw uErr;
-          done();
-        });
-      });
-    });
-
     it('it should send a message', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',

@@ -5,29 +5,42 @@ import dotenv from 'dotenv';
 dotenv.config();
 const environments = {};
 
-// Production environment
 environments.test = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   adminToken: process.env.ADMIN_TOKEN,
-  dbUrl: `postgres://${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/epicmail_db`,
+  secret: process.env.TOKEN_SECRET,
+  salt: process.env.SALT,
+  dbUrl: process.env.DB_URL,
 };
 
-// Development (default) environment
-environments.development = {
+environments.local = {
+  integerIdLength: process.env.ID_LENGTH,
+  morgan: process.env.MORGAN,
+  hashingSecret: process.env.HASHING_SECRET,
+  adminToken: process.env.ADMIN_TOKEN,
+  secret: process.env.TOKEN_SECRET,
+  salt: process.env.SALT,
+  dbUrl: process.env.DB_URL,
+};
+
+environments.dev = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   dbUrl: process.env.DB_URL,
+  secret: process.env.TOKEN_SECRET,
+  salt: process.env.SALT,
 };
 
-// Production environment
 environments.staging = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
   dbUrl: process.env.DATABASE_URL,
+  salt: process.env.SALT,
+  secret: process.env.TOKEN_SECRET,
 };
 
 // Determine which environment we are in

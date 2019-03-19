@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 import { Pool } from 'pg';
-import environment from './config/environments';
+import environment from '../config/environments';
 
 const pool = new Pool({
   connectionString: environment.dbUrl,
@@ -24,7 +24,7 @@ const createTables = () => new Promise(async (resolve, reject) => {
       firstName VARCHAR(128) NOT NULL,
       lastName VARCHAR(128) NOT NULL,
       password VARCHAR(128) NOT NULL,
-      email VARCHAR(128) NOT NULL
+      email VARCHAR(128) UNIQUE NOT NULL
     );
     CREATE TABLE IF NOT EXISTS
     groups(
