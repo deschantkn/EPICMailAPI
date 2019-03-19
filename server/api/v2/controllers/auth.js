@@ -2,6 +2,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import db from '../../../db/index';
 import environment from '../../../config/environments';
+import queries from '../../../db/queries';
+
+const { newUser, findUserByEmail } = queries;
 
 export default {
   /**
@@ -12,10 +15,6 @@ export default {
     const hashedPassword = await bcrypt.hash(req.body.password, 8);
 
     // save user
-    const text = `INSERT INTO
-      users(firstName, lastName, password, email)
-      VALUES($1, $2, $3, $4) returning id;
-    `;
     const values = [
       req.body.firstName,
       req.body.lastName,
@@ -24,7 +23,7 @@ export default {
     ];
 
     try {
-      const { rows } = await db.query(text, values);
+      const { rows } = await db.query(newUser, values);
 
       // create token
       const token = jwt.sign({ id: rows[0].id }, environment.secret, { expiresIn: 86400 });
@@ -37,9 +36,8 @@ export default {
   },
   signin: async (req, res) => {
     // Find user
-    const findOneUser = 'SELECT id, password FROM users WHERE email = $1;';
     try {
-      const { rows } = await db.query(findOneUser, [req.body.email]);
+      const { rows } = await db.query(findUserByEmail, [req.body.email]);
       // if no user if found
       if (rows.length === 0) {
         return res.status(401).json({ status: 400, message: 'Either password or email is invalid' });
