@@ -1,8 +1,8 @@
 import '@babel/polyfill';
 import express from 'express';
 import dotenv from 'dotenv';
-import api from './api';
-import v2 from './v2';
+import api from './api/routes';
+import v2 from './v2/routes';
 import { createTables, dropTables } from './helpers/db';
 import registerMiddleware from './middleware/registerMiddleware';
 

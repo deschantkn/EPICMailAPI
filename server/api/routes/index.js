@@ -1,6 +1,6 @@
 import express from 'express';
-import authRouter from './routes/authRouter';
-import messageRouter from './routes/messageRouter';
+import authRouter from './authRouter';
+import messageRouter from './messageRouter';
 
 const api = express();
 
