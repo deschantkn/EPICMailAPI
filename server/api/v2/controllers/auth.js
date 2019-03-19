@@ -8,7 +8,6 @@ export default {
    * POST - /auth/signup Create a new user
    */
   signup: async (req, res) => {
-    console.log('Hi');
     // hash password
     const hashedPassword = await bcrypt.hash(req.body.password, 8);
 
