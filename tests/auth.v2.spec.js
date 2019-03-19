@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../server/server';
+import app from '../server';
 import { createTables, dropTables } from '../server/helpers/db';
 
 const should = chai.should();

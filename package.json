@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive ./tests/*.js --exit --require @babel/register",
-    "start": "nodemon --exec babel-node server/server.js",
+    "start": "nodemon --exec babel-node server/index.js",
     "build": "babel server --out-dir dist && mkdir -p ./dist/docs && yarn docs",
-    "serve": "node dist/server.js",
+    "serve": "node dist/index.js",
     "lint": "eslint ./server",
-    "debug": "node --inspect-brk ./dist/server.js",
+    "debug": "node --inspect-brk ./dist/index.js",
     "cover": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "docs": "aglio -i server/docs/index.md -o dist/docs/index.html"
   },

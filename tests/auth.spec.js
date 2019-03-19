@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import fs from 'fs';
-import rimraf from 'rimraf';
-import app from '../server/server';
+import app from '../server';
 
 const should = chai.should();
 
@@ -10,18 +8,6 @@ chai.use(chaiHttp);
 
 describe('Auth', () => {
   describe('POST - /api/v1/auth/signup', () => {
-    beforeEach((done) => {
-      rimraf('./server/data', (e) => {
-        fs.mkdir('./server/data/users', { recursive: true }, (uErr) => {
-          if (uErr) throw uErr;
-          fs.mkdir('./server/data/tokens', { recursive: true }, (tErr) => {
-            if (tErr) throw tErr;
-            done();
-          });
-        });
-      });
-    });
-
     it('it should create a new user account', (done) => {
       const user = {
         firstName: 'Deschant',
