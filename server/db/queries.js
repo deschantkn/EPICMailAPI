@@ -50,8 +50,9 @@ export default {
     VALUES ($1, $2, $3, $4, $5, $6)
     returning *;
   `,
-  getAllReceivedMessages: 'SELECT * FROM messages WHERE receiverId = $1',
-  getSentMessages: 'SELECT * FROM messages WHERE senderId = $1',
-  getMessagesByStatus: 'SELECT * FROM messages WHERE receiverId = $1 AND status = $2',
+  getAllReceivedMessages: 'SELECT * FROM messages WHERE receiverId = $1;',
+  getSentMessages: 'SELECT * FROM messages WHERE senderId = $1;',
+  getMessagesByStatus: 'SELECT * FROM messages WHERE receiverId = $1 AND status = $2;',
   getMessageById: 'SELECT * FROM messages WHERE id = $1 AND ( receiverId = $2 OR senderId = $2);',
+  deleteMessageById: 'DELETE FROM messages WHERE id = $1 AND ( receiverId = $2 OR senderId = $2) returning *;',
 };
