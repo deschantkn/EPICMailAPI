@@ -43,8 +43,9 @@ export default {
     }
   },
   getUnreadMessages: async (req, res) => {
+    const { id: currentUser } = req.user;
     try {
-      const { rows: receivedMessages } = await db.query(getMessagesByStatus, ['sent']);
+      const { rows: receivedMessages } = await db.query(getMessagesByStatus, [currentUser, 'sent']);
       return res.status(200).json({ status: 200, data: receivedMessages });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
