@@ -6,7 +6,7 @@ const { newMessage, findUserByEmail } = queries;
 export default {
   newMessage: async (req, res) => {
     const {
-      to: receiverEmail,
+      receiverEmail,
       subject,
       message,
       status,

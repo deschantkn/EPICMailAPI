@@ -37,7 +37,7 @@ export default {
         const [from] = sender;
 
         // Look for email receiver
-        const recipient = users.filter(user => user.email === req.body.to);
+        const recipient = users.filter(user => user.email === req.body.receiverEmail);
         if (recipient.length <= 0) {
           return res.status(404).json({ status: 404, error: 'Recipient email not found' });
         }

@@ -40,7 +40,7 @@ export default {
       const { rows } = await db.query(findUserByEmail, [req.body.email]);
       // if no user if found
       if (rows.length === 0) {
-        return res.status(401).json({ status: 400, message: 'Either password or email is invalid' });
+        return res.status(401).json({ status: 400, error: 'Either password or email is invalid' });
       }
 
       // compare passwords
@@ -51,7 +51,7 @@ export default {
         return res.status(200).json({ status: 200, data: [{ token }] });
       }
 
-      return res.status(401).json({ status: 401, message: 'Either password or email is invalid' });
+      return res.status(401).json({ status: 401, error: 'Either password or email is invalid' });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }

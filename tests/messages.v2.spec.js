@@ -8,6 +8,23 @@ chai.use(chaiHttp);
 
 describe('Messages - V2', () => {
   describe('POST - /api/v2/messages', () => {
+    before((done) => {
+      const user2 = {
+        firstName: 'Juniors',
+        lastName: 'Kounous',
+        email: 'juniorskounou@epic.mail',
+        password: 'mangasBoy40',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v2/auth/signup')
+        .send(user2)
+        .end((err, res) => {
+          done();
+        });
+    });
+
     let userToken;
 
     it('it should login test user', (done) => {
@@ -30,7 +47,7 @@ describe('Messages - V2', () => {
     it('it should send a message', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'juniorkounou@epic.mail',
+        receiverEmail: 'juniorskounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
@@ -51,7 +68,7 @@ describe('Messages - V2', () => {
 
     it('it should not send a message missing required field', (done) => {
       const message = {
-        to: 'juniorkounou@epic.mail',
+        receiverEmail: 'juniorkounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
@@ -72,7 +89,7 @@ describe('Messages - V2', () => {
     it('it should not send a message with a wrong email', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'juniokounou@epic.mail',
+        receiverEmail: 'juniokounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
