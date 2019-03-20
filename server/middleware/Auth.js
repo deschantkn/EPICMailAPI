@@ -6,8 +6,9 @@ import queries from '../db/queries';
 const Auth = {
   verifyToken: async (req, res, next) => {
     const { token } = req.headers;
+		console.log('TCL: token', token);
     if (!token) {
-      return res.status(400).json({ status: 400, message: 'Token is missing' });
+      return res.status(401).json({ status: 401, message: 'Token is missing' });
     }
     try {
       const decoded = await jwt.verify(token, environment.secret);
@@ -15,7 +16,7 @@ const Auth = {
       const { rows } = await db.query(getUserById, [decoded.id]);
 
       if (!rows[0]) {
-        return res.status(400).json({ status: 400, message: 'Token is invalid' });
+        return res.status(401).json({ status: 401, message: 'Token is invalid' });
       }
       req.user = { id: decoded.id };
       return next();

@@ -6,7 +6,7 @@ const { newMessage, findUserByEmail } = queries;
 export default {
   newMessage: async (req, res) => {
     const {
-      to,
+      to: receiverEmail,
       subject,
       message,
       status,
@@ -17,9 +17,9 @@ export default {
     const { id: sender } = req.user;
     // find message receiver
     try {
-      const { rows } = await db.query(findUserByEmail, [to]);
+      const { rows } = await db.query(findUserByEmail, [receiverEmail]);
       if (!rows[0]) {
-        return res.status(400).json({ status: 400, message: 'Message receiver does not exist' });
+        return res.status(400).json({ status: 400, error: 'Message receiver does not exist' });
       }
       const { id: receiver } = rows[0];
 

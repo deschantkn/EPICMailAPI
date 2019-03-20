@@ -68,5 +68,26 @@ describe('Messages - V2', () => {
           done();
         });
     });
+
+    it('it should not send a message with a wrong email', (done) => {
+      const message = {
+        from: 'deschantkounou@epic.mail',
+        to: 'juniokounou@epic.mail',
+        subject: 'Test mail',
+        message: 'Hello world',
+        status: 'sent',
+      };
+
+      chai
+        .request(app)
+        .post('/api/v2/messages')
+        .set('token', userToken)
+        .send(message)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
   });
 });
