@@ -172,5 +172,29 @@ describe('Messages - V2', () => {
           done();
         });
     });
+
+    it('it should delete a specific email for a user', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/v2/messages/${messageId}`)
+        .set('token', receiverToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
+
+    it('it should not delete a message that does not exist', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/v2/messages/${messageId + 4}`)
+        .set('token', receiverToken)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
   });
 });
