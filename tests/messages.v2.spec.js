@@ -47,6 +47,8 @@ describe('Messages - V2', () => {
         });
     });
 
+    let messageId;
+
     it('it should send a message', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
@@ -65,6 +67,7 @@ describe('Messages - V2', () => {
           res.should.have.status(201);
           res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
+          messageId = res.body.data[0].id;
           done();
         });
     });
@@ -139,6 +142,18 @@ describe('Messages - V2', () => {
         .request(app)
         .get('/api/v2/messages/sent')
         .set('token', receiverToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
+
+    it('it should get a specific email for a user', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v2/messages/${messageId}`)
+        .set('token', userToken)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.data.should.be.a('array');
