@@ -121,5 +121,17 @@ describe('Messages - V2', () => {
           done();
         });
     });
+
+    it('it should get all unread emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v2/messages/unread')
+        .set('token', receiverToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
   });
 });

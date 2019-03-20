@@ -16,7 +16,7 @@ const {
 
 messageRouter.post('/', verifyToken, validate(true, 'newMessage'), newMessage);
 messageRouter.get('/', verifyToken, getReceivedMessages);
-messageRouter.get('/unread', getUnreadMessages);
+messageRouter.get('/unread', verifyToken, getUnreadMessages);
 messageRouter.get('/sent', getSentMessages);
 messageRouter.get('/:messageId', getOneMessage);
 messageRouter.delete('/:messageId', deleteOneMessage);
