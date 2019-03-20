@@ -7,7 +7,7 @@ const {
   getAllReceivedMessages,
   getMessagesByStatus,
   getSentMessages,
-  getMessageById
+  getMessageById,
 } = queries;
 
 export default {
@@ -71,7 +71,15 @@ export default {
     const { id: currentUser } = req.user;
     const { messageId } = req.params;
     try {
-      const { rows: fetchedMessage } = await db.query(getMessageById, [currentUser, parseInt(messageId, 10)]);
+      const { rows: fetchedMessage } = await db.query(
+        getMessageById,
+        [parseInt(messageId, 10), currentUser],
+      );
+
+      if (!fetchedMessage[0]) {
+        return res.status(404).json({ status: 404, error: 'Message not found' });
+      }
+
       return res.status(200).json({ status: 200, data: fetchedMessage });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });

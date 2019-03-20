@@ -160,5 +160,17 @@ describe('Messages - V2', () => {
           done();
         });
     });
+
+    it('it should not get a specific email for a user', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v2/messages/${messageId + 1}`)
+        .set('token', userToken)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
   });
 });
