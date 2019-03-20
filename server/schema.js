@@ -17,10 +17,10 @@ export default {
   }),
   newMessage: Joi.object().keys({
     from: email,
-    to: email,
+    receiverEmail: email,
     subject: string.required(),
     message: string.required(),
     status: string.valid(['sent', 'draft', 'read']).required(),
-    parentMessageId: Joi.number().default(0),
+    parentMessageId: Joi.number().default(null),
   }),
 };

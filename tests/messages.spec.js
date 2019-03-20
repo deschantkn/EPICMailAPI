@@ -12,7 +12,7 @@ describe('Messages', () => {
     it('it should send a message', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'juniorkounou@epic.mail',
+        receiverEmail: 'juniorkounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
@@ -166,7 +166,7 @@ describe('Messages', () => {
     it('it should get test message id', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'juniorkounou@epic.mail',
+        receiverEmail: 'juniorkounou@epic.mail',
         subject: 'Test mail',
         message: 'Hello world',
         status: 'sent',
@@ -221,7 +221,7 @@ describe('Messages', () => {
     it('it should get test message id', (done) => {
       const message = {
         from: 'deschantkounou@epic.mail',
-        to: 'juniorkounou@epic.mail',
+        receiverEmail: 'juniorkounou@epic.mail',
         subject: 'This will be deleted',
         message: 'SHould not be seen in data',
         status: 'sent',

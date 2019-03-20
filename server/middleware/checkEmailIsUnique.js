@@ -10,7 +10,7 @@ export default async (req, res, next) => {
       return next();
     }
 
-    return res.status(400).json({ status: 400, message: 'This email address is already taken. Please use a different one.' })
+    return res.status(400).json({ status: 400, error: 'This email address is already taken. Please use a different one.' })
   } catch (error) {
     return res.status(500).json({ status: 500, error: `Internal Server Error:\n${error}` });
   }
