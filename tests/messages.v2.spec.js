@@ -8,6 +8,8 @@ chai.use(chaiHttp);
 
 describe('Messages - V2', () => {
   describe('POST - /api/v2/messages', () => {
+    let receiverToken;
+
     before((done) => {
       const user2 = {
         firstName: 'Juniors',
@@ -21,6 +23,7 @@ describe('Messages - V2', () => {
         .post('/api/v2/auth/signup')
         .send(user2)
         .end((err, res) => {
+          receiverToken = res.body.data[0].token;
           done();
         });
     });
@@ -103,6 +106,18 @@ describe('Messages - V2', () => {
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.have.property('error');
+          done();
+        });
+    });
+
+    it('it should get all received emails for a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/v2/messages')
+        .set('token', receiverToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
           done();
         });
     });
