@@ -51,5 +51,6 @@ export default {
     returning *;
   `,
   getAllReceivedMessages: 'SELECT * FROM messages WHERE receiverId = $1',
+  getSentMessages: 'SELECT * FROM messages WHERE senderId = $1',
   getMessagesByStatus: 'SELECT * FROM messages WHERE receiverId = $1 AND status = $2',
 };

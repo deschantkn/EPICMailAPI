@@ -1,7 +1,13 @@
 import db from '../../../db';
 import queries from '../../../db/queries';
 
-const { newMessage, findUserByEmail, getAllReceivedMessages, getMessagesByStatus } = queries;
+const {
+  newMessage,
+  findUserByEmail,
+  getAllReceivedMessages,
+  getMessagesByStatus,
+  getSentMessages,
+} = queries;
 
 export default {
   newMessage: async (req, res) => {
@@ -52,7 +58,13 @@ export default {
     }
   },
   getSentMessages: async (req, res) => {
-    
+    const { id: currentUser } = req.user;
+    try {
+      const { rows: receivedMessages } = await db.query(getSentMessages, [currentUser]);
+      return res.status(200).json({ status: 200, data: receivedMessages });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
+    }
   },
   getOneMessage: async (req, res) => {
     
