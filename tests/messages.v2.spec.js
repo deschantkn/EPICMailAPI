@@ -177,7 +177,7 @@ describe('Messages - V2', () => {
       chai
         .request(app)
         .delete(`/api/v2/messages/${messageId}`)
-        .set('token', userToken)
+        .set('token', receiverToken)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.data.should.be.a('array');
@@ -185,11 +185,11 @@ describe('Messages - V2', () => {
         });
     });
 
-    it('it should not delete a specific email for a user with invalid id', (done) => {
+    it('it should not delete a message that does not exist', (done) => {
       chai
         .request(app)
         .delete(`/api/v2/messages/${messageId + 4}`)
-        .set('token', userToken)
+        .set('token', receiverToken)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('error');

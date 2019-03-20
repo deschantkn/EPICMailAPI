@@ -54,5 +54,5 @@ export default {
   getSentMessages: 'SELECT * FROM messages WHERE senderId = $1;',
   getMessagesByStatus: 'SELECT * FROM messages WHERE receiverId = $1 AND status = $2;',
   getMessageById: 'SELECT * FROM messages WHERE id = $1 AND ( receiverId = $2 OR senderId = $2);',
-  deleteMessageById: 'DELETE FROM messages WHERE id = $1 AND ( receiverId = $2 OR senderId = $2) returning *;',
+  deleteMessageById: 'DELETE FROM messages WHERE id = $1 AND ( receiverId = $2 ) returning *;',
 };
