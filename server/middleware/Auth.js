@@ -6,7 +6,6 @@ import queries from '../db/queries';
 const Auth = {
   verifyToken: async (req, res, next) => {
     const { token } = req.headers;
-		console.log('TCL: token', token);
     if (!token) {
       return res.status(401).json({ status: 401, error: 'Token is missing' });
     }
