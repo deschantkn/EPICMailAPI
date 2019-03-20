@@ -18,7 +18,7 @@ messageRouter.post('/', verifyToken, validate(true, 'newMessage'), newMessage);
 messageRouter.get('/', verifyToken, getReceivedMessages);
 messageRouter.get('/unread', verifyToken, getUnreadMessages);
 messageRouter.get('/sent', verifyToken, getSentMessages);
-messageRouter.get('/:messageId', getOneMessage);
+messageRouter.get('/:messageId', verifyToken, getOneMessage);
 messageRouter.delete('/:messageId', deleteOneMessage);
 
 export default messageRouter;

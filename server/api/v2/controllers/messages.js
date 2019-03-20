@@ -7,6 +7,7 @@ const {
   getAllReceivedMessages,
   getMessagesByStatus,
   getSentMessages,
+  getMessageById,
 } = queries;
 
 export default {
@@ -51,8 +52,8 @@ export default {
   getUnreadMessages: async (req, res) => {
     const { id: currentUser } = req.user;
     try {
-      const { rows: receivedMessages } = await db.query(getMessagesByStatus, [currentUser, 'sent']);
-      return res.status(200).json({ status: 200, data: receivedMessages });
+      const { rows: unreadMessages } = await db.query(getMessagesByStatus, [currentUser, 'sent']);
+      return res.status(200).json({ status: 200, data: unreadMessages });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }
@@ -60,14 +61,29 @@ export default {
   getSentMessages: async (req, res) => {
     const { id: currentUser } = req.user;
     try {
-      const { rows: receivedMessages } = await db.query(getSentMessages, [currentUser]);
-      return res.status(200).json({ status: 200, data: receivedMessages });
+      const { rows: sentMessages } = await db.query(getSentMessages, [currentUser]);
+      return res.status(200).json({ status: 200, data: sentMessages });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }
   },
   getOneMessage: async (req, res) => {
-    
+    const { id: currentUser } = req.user;
+    const { messageId } = req.params;
+    try {
+      const { rows: fetchedMessage } = await db.query(
+        getMessageById,
+        [parseInt(messageId, 10), currentUser],
+      );
+
+      if (!fetchedMessage[0]) {
+        return res.status(404).json({ status: 404, error: 'Message not found' });
+      }
+
+      return res.status(200).json({ status: 200, data: fetchedMessage });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
+    }
   },
   deleteOneMessage: async (req, res) => {
     
