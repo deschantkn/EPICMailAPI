@@ -8,7 +8,7 @@ const {
   getMessagesByStatus,
   getSentMessages,
   getMessageById,
-  deleteMessageById
+  deleteMessageById,
 } = queries;
 
 export default {

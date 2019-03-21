@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import _ from 'lodash';
 import Joi from 'joi';
-import Schemas from '../schema';
+import Schemas from '../helpers/schema';
 
 export default (useJoiError = false, schema) => {
   const _useJoiError = _.isBoolean(useJoiError) && useJoiError;

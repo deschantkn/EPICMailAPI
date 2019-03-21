@@ -23,4 +23,8 @@ export default {
     status: string.valid(['sent', 'draft', 'read']).required(),
     parentMessageId: Joi.number().default(null),
   }),
+  newGroup: Joi.object().keys({
+    groupName: string.min(1).required(),
+    // members: Joi.array().min(1).items(email).required(),
+  }),
 };

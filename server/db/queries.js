@@ -11,14 +11,14 @@ export default {
     CREATE TABLE IF NOT EXISTS
     groups(
       id SERIAL PRIMARY KEY,
-      name VARCHAR(128) NOT NULL,
-      ownerId INTEGER REFERENCES users(id) 
+      name VARCHAR(128) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS
     group_members(
       id SERIAL PRIMARY KEY,
       groupId INTEGER REFERENCES groups(id),
-      memberId INTEGER REFERENCES users(id)
+      memberId INTEGER REFERENCES users(id),
+      role VARCHAR(50) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS
     messages(
@@ -55,4 +55,6 @@ export default {
   getMessagesByStatus: 'SELECT * FROM messages WHERE receiverId = $1 AND status = $2;',
   getMessageById: 'SELECT * FROM messages WHERE id = $1 AND ( receiverId = $2 OR senderId = $2);',
   deleteMessageById: 'DELETE FROM messages WHERE id = $1 AND ( receiverId = $2 ) returning *;',
+  newGroup: 'INSERT INTO groups(name) VALUES ($1) returning *;',
+  insertGroupMember: 'INSERT INTO group_members(groupId, memberId, role) VALUES ($1, $2, $3) returning *;',
 };
