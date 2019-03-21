@@ -27,4 +27,8 @@ export default {
     groupName: string.min(1).required(),
     // members: Joi.array().min(1).items(email).required(),
   }),
+  newUserToGroup: Joi.object().keys({
+    newUserEmail: email,
+    groupName: string.required(),
+  }),
 };

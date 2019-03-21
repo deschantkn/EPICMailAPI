@@ -62,6 +62,11 @@ export default {
     FROM groups, group_members 
     WHERE groups.id = $1
     AND group_members.memberId = $2;`,
+  getMyGroup: `
+    SELECT groups.id, groups.name, group_members.role
+    FROM groups, group_members 
+    WHERE groups.id = $1
+    AND group_members.memberId = $2;`,
   getMyGroups: `
     SELECT groupId
     FROM group_members AS gm 

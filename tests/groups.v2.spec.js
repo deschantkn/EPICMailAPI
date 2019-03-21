@@ -76,6 +76,61 @@ describe('Groups - V2', () => {
           done();
         });
     });
+    
+    it('it should add a user to a group', (done) => {
+      const newUser = {
+        newUserEmail: 'juniorkounou@epic.mail',
+        groupName: 'Avengers',
+      };
+
+      chai
+        .request(app)
+        .post(`/api/v2/groups/${groupId}/user`)
+        .set('token', userToken)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
+
+    it('it should not add a user to a group if email is invalid', (done) => {
+      const newUser = {
+        newUserEmail: 'juniorkonou@epic.mail',
+        groupName: 'Avengers',
+      };
+
+      chai
+        .request(app)
+        .post(`/api/v2/groups/${groupId}/user`)
+        .set('token', userToken)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
+
+    it('it should not add a user to a group if group name is invalid', (done) => {
+      const newUser = {
+        newUserEmail: 'juniorkonou@epic.mail',
+        groupName: 'Avengs',
+      };
+
+      chai
+        .request(app)
+        .post(`/api/v2/groups/${groupId}/user`)
+        .set('token', userToken)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
 
     it('it should update a user\'s group name', (done) => {
       chai
