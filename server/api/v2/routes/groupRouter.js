@@ -7,8 +7,9 @@ import validate from '../../../middleware/validate';
 const groupRouter = Router();
 
 const { verifyToken } = Auth;
-const { newGroup } = groupController;
+const { newGroup, getGroups } = groupController;
 
 groupRouter.post('/', verifyToken, validate(true, 'newGroup'), newGroup);
+groupRouter.get('/', verifyToken, getGroups);
 
 export default groupRouter;
