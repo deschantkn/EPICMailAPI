@@ -66,4 +66,10 @@ export default {
     SELECT groupId
     FROM group_members AS gm 
     WHERE gm.memberId = $1 AND gm.role = $2;`,
+  newGroupName: `
+    UPDATE groups
+    SET name = $1
+    FROM group_members
+    WHERE group_members.memberId = $2 AND groups.id = $3 AND group_members.role = $4
+    returning groups.id, name, role;`,
 };
