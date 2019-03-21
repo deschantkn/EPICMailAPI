@@ -1,12 +1,13 @@
+import async from 'async';
 import db from '../../../db';
 import queries from '../../../db/queries';
-import async from 'async';
 
 const {
   newGroup,
   insertGroupMember,
   getMyGroups,
   getGroupById,
+  newGroupName,
 } = queries;
 
 export default {
@@ -40,6 +41,21 @@ export default {
         data.push(fetchedGroup[0]);
         callback();
       }, () => res.status(200).json({ status: 200, data }));
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
+    }
+  },
+  updateGroupName: async (req, res) => {
+    const { id: currentUser } = req.user;
+    const { groupName } = req.body;
+    const { groupId } = req.params;
+    try {
+      const { rows: updatedGroup } = await db.query(newGroupName, [groupName, currentUser, parseInt(groupId, 10), 'admin']);
+      if (!updatedGroup[0]) {
+        return res.status(404).json({ status: 404, error: 'Cannot update, group not found' });
+      }
+
+      return res.status(200).json({ status: 200, data: updatedGroup });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }

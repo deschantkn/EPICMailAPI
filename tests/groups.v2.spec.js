@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import app from '../server';
 
 const should = chai.should();
+const { expect } = chai;
 
 chai.use(chaiHttp);
 
@@ -27,6 +28,8 @@ describe('Groups - V2', () => {
         });
     });
 
+    let groupId;
+
     it('it should create a new group', (done) => {
       const newGroup = {
         groupName: 'Avengers',
@@ -41,6 +44,7 @@ describe('Groups - V2', () => {
           res.should.have.status(201);
           res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
+          groupId = res.body.data[0].id;
           done();
         });
     });
@@ -69,6 +73,21 @@ describe('Groups - V2', () => {
           res.should.have.status(200);
           res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
+
+    it('it should update a user\'s group name', (done) => {
+      chai
+        .request(app)
+        .patch(`/api/v2/groups/${groupId}/name`)
+        .set('token', userToken)
+        .send({ groupName: 'Aminou' })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          expect(res.body.data[0].name).to.equal('Aminou');
           done();
         });
     });
