@@ -220,3 +220,30 @@ Messages related resources in the API.
             "message": "Email was succesfully deleted"
           }]
         }
+
+# Group Groups
+
+Group resources
+
+## Groups [/groups]
+
+### Create a new group [POST]
+
++ groupName (string) - The group name
+
++ Request (application/json)
+
+        {
+          "groupName": "Moon"
+        }
+
++ Response 201 (application/json)
+
+        {
+          "status": 201,
+          "data": [{
+            "id": 2,
+            "name": "Moon",
+            "role": "admin"
+          }]
+        }
