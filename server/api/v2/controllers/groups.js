@@ -8,6 +8,7 @@ const {
   getMyGroups,
   getGroupById,
   newGroupName,
+  deleteMyGroup,
 } = queries;
 
 export default {
@@ -56,6 +57,20 @@ export default {
       }
 
       return res.status(200).json({ status: 200, data: updatedGroup });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
+    }
+  },
+  deleteGroup: async (req, res) => {
+    const { id: currentUser } = req.user;
+    const { groupId } = req.params;
+    try {
+      const { rows: deletedGroup } = await db.query(deleteMyGroup, [groupId, currentUser, 'admin']);
+      if (!deletedGroup[0]) {
+        return res.status(404).json({ status: 404, error: 'Cannot delete, group not found' });
+      }
+
+      return res.status(200).json({ status: 200, data: [{ message: 'Group successfully deleted' }] });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }

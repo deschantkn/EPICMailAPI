@@ -16,7 +16,7 @@ export default {
     CREATE TABLE IF NOT EXISTS
     group_members(
       id SERIAL PRIMARY KEY,
-      groupId INTEGER REFERENCES groups(id),
+      groupId INTEGER REFERENCES groups(id) ON DELETE CASCADE,
       memberId INTEGER REFERENCES users(id),
       role VARCHAR(50) NOT NULL
     );
@@ -72,4 +72,10 @@ export default {
     FROM group_members
     WHERE group_members.memberId = $2 AND groups.id = $3 AND group_members.role = $4
     returning groups.id, name, role;`,
+  deleteMyGroup: `
+    DELETE FROM groups 
+    USING group_members
+    WHERE groups.id = $1 AND group_members.memberId = $2 AND group_members.role = $3
+    returning groups.id, groups.name, group_members.role;
+  `,
 };
