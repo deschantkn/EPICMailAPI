@@ -104,5 +104,17 @@ describe('Groups - V2', () => {
           done();
         });
     });
+
+    it('it should not delete a group that does not exist', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/v2/groups/${groupId + 10}`)
+        .set('token', userToken)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('error');
+          done();
+        });
+    });
   });
 });
