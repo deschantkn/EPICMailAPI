@@ -108,7 +108,7 @@ describe('Groups - V2', () => {
         .set('token', userToken)
         .send(newUser)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(404);
           res.body.should.have.property('error');
           done();
         });
@@ -126,7 +126,7 @@ describe('Groups - V2', () => {
         .set('token', userToken)
         .send(newUser)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(404);
           res.body.should.have.property('error');
           done();
         });

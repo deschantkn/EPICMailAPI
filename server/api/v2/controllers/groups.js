@@ -85,12 +85,12 @@ export default {
       // Check if user to be added exists
       const { rows: userExists } = await db.query(findUserByEmail, [newUserEmail]);
       if (!userExists[0]) {
-        return res.status(400).json({ status: 400, error: 'Cannot add user. User not found' });
+        return res.status(404).json({ status: 404, error: 'Cannot add user. User not found' });
       }
       // Find group where current user is the owner
-      const { rows: groupToAddTo } = await db.query(getMyGroup, [groupName, currentUser, 'admin', groupId]);
+      const { rows: groupToAddTo } = await db.query(getMyGroup, [groupId, currentUser]);
       if (!groupToAddTo[0]) {
-        return res.status(400).json({ status: 400, error: 'Cannot add user. Group not found' });
+        return res.status(404).json({ status: 404, error: 'Cannot add user. Group not found' });
       }
       // Add user to group as a member
       const { id: tagetGroupId } = groupToAddTo[0];
