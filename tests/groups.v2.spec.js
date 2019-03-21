@@ -59,5 +59,18 @@ describe('Groups - V2', () => {
           done();
         });
     });
+
+    it('it should get a user\'s groups', (done) => {
+      chai
+        .request(app)
+        .get('/api/v2/groups')
+        .set('token', userToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 });

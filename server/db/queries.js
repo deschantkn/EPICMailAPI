@@ -57,4 +57,13 @@ export default {
   deleteMessageById: 'DELETE FROM messages WHERE id = $1 AND ( receiverId = $2 ) returning *;',
   newGroup: 'INSERT INTO groups(name) VALUES ($1) returning *;',
   insertGroupMember: 'INSERT INTO group_members(groupId, memberId, role) VALUES ($1, $2, $3) returning *;',
+  getGroupById: `
+    SELECT groups.id, groups.name, group_members.role
+    FROM groups, group_members 
+    WHERE groups.id = $1
+    AND group_members.memberId = $2;`,
+  getMyGroups: `
+    SELECT groupId
+    FROM group_members AS gm 
+    WHERE gm.memberId = $1 AND gm.role = $2;`,
 };
