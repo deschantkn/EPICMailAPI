@@ -91,5 +91,18 @@ describe('Groups - V2', () => {
           done();
         });
     });
+
+    it('it should delete a user\'s group', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/v2/groups/${groupId}`)
+        .set('token', userToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 });
