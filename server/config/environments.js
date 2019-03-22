@@ -38,7 +38,7 @@ environments.staging = {
   integerIdLength: process.env.ID_LENGTH,
   morgan: process.env.MORGAN,
   hashingSecret: process.env.HASHING_SECRET,
-  dbUrl: process.env.DATABASE_URL,
+  dbUrl: process.env.DB_URL,
   salt: process.env.SALT,
   secret: process.env.TOKEN_SECRET,
 };
