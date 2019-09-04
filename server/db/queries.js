@@ -39,11 +39,11 @@ export default {
     DROP TABLE IF EXISTS group_members CASCADE;
   `,
   getUserById: 'SELECT * FROM users WHERE id = $1',
-  findUserByEmail: 'SELECT id, password FROM users WHERE email = $1;',
+  findUserByEmail: 'SELECT * FROM users WHERE email = $1;',
   newUser: `
     INSERT INTO
     users(firstName, lastName, password, email)
-    VALUES($1, $2, $3, $4) returning id;
+    VALUES($1, $2, $3, $4) returning id, firstName, lastName, email;
   `,
   newMessage: `
     INSERT INTO messages(senderId, receiverId, parentMessageId, subject, message, status) 
