@@ -45,7 +45,7 @@ export default {
     const { id: currentUser } = req.user;
     try {
       const { rows: receivedMessages } = await db.query(getAllReceivedMessages, [currentUser]);
-      return res.status(200).json({ status: 200, data: [receivedMessages[0]] });
+      return res.status(200).json({ status: 200, data: [receivedMessages] });
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
     }
