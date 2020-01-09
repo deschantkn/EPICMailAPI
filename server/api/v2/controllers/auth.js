@@ -26,7 +26,7 @@ export default {
       const { rows } = await db.query(newUser, values);
 
       // create token
-      const token = jwt.sign({ id: rows[0].id }, environment.secret, { expiresIn: 86400 });
+      const token = jwt.sign({ ...rows[0] }, environment.secret, { expiresIn: 86400 });
 
       // return success response
       return res.status(201).json({ status: 201, data: [{ token }] });
@@ -47,7 +47,7 @@ export default {
       const passwordIsValid = bcrypt.compareSync(req.body.password, rows[0].password);
       if (passwordIsValid) {
         // create token
-        const token = jwt.sign({ id: rows[0].id }, environment.secret, { expiresIn: 86400 });
+        const token = jwt.sign({ ...rows[0] }, environment.secret, { expiresIn: 86400 });
         return res.status(200).json({ status: 200, data: [{ token }] });
       }
 

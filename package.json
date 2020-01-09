@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive ./tests/*.js --exit --require @babel/register",
     "start": "nodemon --exec babel-node server/index.js",
-    "build": "babel server --out-dir dist && mkdir -p ./dist/docs && yarn docs",
+    "build": "babel server --out-dir dist && mkdir -p ./dist/docs && npm run docs",
     "serve": "node dist/index.js",
     "lint": "eslint ./server",
     "debug": "node --inspect-brk ./dist/index.js",

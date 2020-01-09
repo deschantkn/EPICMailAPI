@@ -16,7 +16,7 @@ export default {
     password,
   }),
   newMessage: Joi.object().keys({
-    from: email,
+    // from: email,
     receiverEmail: email,
     subject: string.required(),
     message: string.required(),

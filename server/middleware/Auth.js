@@ -17,7 +17,7 @@ const Auth = {
       if (!rows[0]) {
         return res.status(401).json({ status: 401, error: 'Token is invalid' });
       }
-      req.user = { id: decoded.id };
+      req.user = { ...decoded };
       return next();
     } catch (error) {
       return res.status(500).json({ status: 500, error: `Internal server error: ${error}` });
